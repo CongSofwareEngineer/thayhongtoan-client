@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://thayhongtoan.vercel.app/
+
+# Sitemaps
+Sitemap: https://thayhongtoan.vercel.app/sitemap.xml

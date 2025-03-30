@@ -1,0 +1,410 @@
+{
+  "language": "Ngôn ngữ",
+  "common": {
+    "updateAdmin": "Cấp quyền admin",
+    "revertAdmin": "Thu quyền admin",
+    "continue": "Tiếp tục",
+    "back": "Trờ về",
+    "updateFeedback": "Cập nhật đánh giá",
+    "feedback": "Đánh giá",
+    "sendFeedback": "Đánh giá",
+    "search": "Tìm",
+    "cancelBill": "Hủy đơn",
+    "addNew": "Thêm mới",
+    "update": "Cập nhật",
+    "create": "Tạo mới",
+    "ok": "OK",
+    "login": "Đăng nhập",
+    "logOut": "Đăng xuất",
+    "close": "Thoát",
+    "Send": "Gửi",
+    "buy": "Mua",
+    "buyAgain": "Mua lại",
+    "submit": "Xác nhận",
+    "buyNow": "Mua ngay",
+    "addCart": "Thêm vào giỏ hàng",
+    "uploadImage": "Tải ảnh lên",
+    "edit": "Chỉnh sửa",
+    "uploadAvatar": "Chọn ảnh (Max 5MB)",
+    "save": "Lưu lại",
+    "addAddress": "Thêm địa chỉ",
+    "clearAll": "Xóa hết",
+    "delete": "Xóa",
+    "viewBill": "Xem hóa đơn",
+    "view": "Xem",
+    "cancelOrder": "Hủy đơn",
+    "writeComment": "Viết bình luận",
+    "reply": "Trả lời",
+    "checkBanking": "Kiểm tra Banking"
+  },
+  "userDetail": {
+    "addressNow": "Địa chỉ hiện tại",
+    "sdt": "Số điện thoại",
+    "name": "Họ và Tên",
+    "pass": "Mật khẩu",
+    "exp": "Điểm tích lũy",
+    "sex": "Giới tính",
+    "editAvatar": "Chỉnh sửa ảnh đại diện"
+  },
+  "register": {
+    "title": "Đăng ký tài khoản",
+    "enterPassWord": "Nhập mật khẩu",
+    "enterPassWordAgain": "Nhập lại mật khẩu",
+    "saveRegister": "Lưu đăng nhập",
+    "success": "Đăng ký thành công",
+    "gmailRequire": "Nhập gmail (lấy lại tài khoản khi quên mật khẩu)",
+    "exitSDT": "SĐT đã tồn tại"
+  },
+  "textPopular": {
+    "empty": "Chưa có sản phẩm",
+    "sended": "Đã gửi",
+    "content": "Nội dung",
+    "useful": "Hữu ích",
+    "source": "Nguồn",
+    "date": "Ngày Tháng",
+    "moreLike": "Có thể bạn cũng thích",
+    "feedbackProduct": "Đánh giá sản phẩm",
+    "attribute": "Thuộc tính",
+    "size": "Size",
+    "shoes": "Giày dép",
+    "rate": "Đánh giá",
+    "showScreen": "Hiện thị Website",
+    "copied": "Đã sao chép",
+    "feedback": "Đánh giá",
+    "updating": "Đang cập nhật",
+    "notData": "Chưa có dữ liệu",
+    "loadMore": "Xem thêm",
+    "province": "Tỉnh",
+    "district": "Huyện / Quận / Thành phố",
+    "ward": "Phường / Xã",
+    "addressDetail": "Địa chỉ nhà củ thể",
+    "feeShip": "Phí Ship",
+    "provisional": "Tạm tính",
+    "all": "Tất cả",
+    "infor": "Thông tin",
+    "updateFailed": "Cập nhật thất bại",
+    "status": "Trạng thái",
+    "statusSuccess": "Hoàn thành",
+    "statusProcessing": "Đang xử lý",
+    "image": "Ảnh",
+    "menuCategory": "Danh mục sản phẩm",
+    "address": "Địa chỉ",
+    "hash": "Hash",
+    "time": "time",
+    "logOut": "Log out",
+    "tokenId": "Token ID",
+    "nameChain": "Chain",
+    "description": "Thông tin",
+    "amount": "Số lượng",
+    "freeShip": "Free ship ",
+    "addressShip": "Địa chỉ ship hàng",
+    "nameProduct": "Tên",
+    "totalMoney": "Tổng tiền",
+    "disCount": "Giảm gía",
+    "comment": "Bình luận",
+    "freeShip_des": "Free ship trong 15km",
+    "viewMore": "Xem thêm",
+    "searchNameProduct": "Tìm sản phẩm",
+    "male": "Nam",
+    "female": "Nữ",
+    "product": "Sản phẩm",
+    "contactShop": "Nhắn tin với Shop",
+    "note": "Ghi Chú",
+    "now": "Hiện tại",
+    "newValue": "Giá trị mới",
+    "viewDetail": "Xem chi tiết",
+    "buyNow": "Mua ngay",
+    "enterPassToContinue": "Nhập mật khẩu để tiếp tục",
+    "fullData": "Đã hết dữ liệu",
+    "reason": "Lý do",
+    "cost": "Giá gốc",
+    "point": "Điểm tích lũy",
+    "dateStart": "Ngày bắt đầu",
+    "dateEnd": "Ngày kết thúc",
+    "nest": "Yến",
+    "color": "Màu"
+  },
+  "addCart": {
+    "addSuccess": "Đã thêm vào giỏ hàng",
+    "addFailed": "Đã xảy ra lỗi"
+  },
+  "menuProduct": {
+    "linePrice": "Mức giá",
+    "category": "Danh mục",
+    "product": "Sản phẩm"
+  },
+  "mintNFT": {
+    "addNewImg": "Thêm ảnh mới",
+    "mintNFT": "Mint NFT",
+    "coursers": "Coursers",
+    "student": "Student"
+  },
+  "optionPayment": {
+    "onDelivery": "Thanh toán khi nhận hàng (COD)",
+    "banking": "Chuyển khoản",
+    "paymentMethod": "Phương Thức Thanh Toán"
+  },
+  "myBill": {
+    "title": "Hóa đơn",
+    "des": "Danh sách các hóa đơn bạn đã đặt hàng",
+    "delivering": "Đang giao",
+    "deliverySuccess": "Đã giao",
+    "processing": "Đang xử lý",
+    "cancelOrder": {
+      "whyCancel": "Lý do hủy đơn",
+      "cancelOrder": "Hủy đơn hàng",
+      "cancelSuccess": "Hủy đơn thành công",
+      "cancelEror": "Mạng có vấn đề. Thử lại sau vài phút"
+    },
+    "idOrder": "Mã đơn"
+  },
+  "bill": {
+    "listBill": "Danh sách sản phẩm",
+    "id": "Mã ĐH",
+    "noteBill": "Ghi chú đơn hàng",
+    "totalBill": "Tổng thanh toán",
+    "detailPayment": "Chi Tiết Thanh Toán",
+    "infoDelivery": "Thông Tin Nhận Hàng",
+    "infoReceived": "Thông tin người nhận",
+    "infoBill": "Thông Tin đơn hàng",
+    "title": "Hóa đơn",
+    "dateBuy": "Ngày mua",
+    "priceTotal": "Tổng cộng",
+    "abort": "Hủy mua",
+    "warningCancel": "Bạn muốn hủy đơn",
+    "deliveryFail": "Giao hàng thất bại",
+    "warningCancel_des": "Đơn hàng sẽ hủy và không lưu lại. Bạn hủy phải đặt lại đơn hàng mới",
+    "destroyBillSuccess": "Hủy đơn thành công",
+    "destroyBillError": "Đơn không thể hủy"
+  },
+  "myProfile": {
+    "myProfile": "Trang cá nhân",
+    "desProfile": "Quản lý thông tin hồ sơ để bảo mật tài khoản",
+    "updateAddressShip": "Cập nhật địa chỉ giao hàng",
+    "updateAddressShipSuccess": "Cập nhật địa chỉ giao hàng thành công",
+    "deleteAddressShipper": "Bạn muốn xóa địa chỉ này",
+    "deleteAddressShipper_des": "Đại chỉ này sẽ xóa vĩnh viễn và không khôi phục lại cho bạn"
+  },
+  "category": "Mặt hàng",
+  "header": {
+    "nests": "Shop Yến",
+    "shop": "Shopping",
+    "coffee": "Coffee Shop",
+    "pod": "Pod Shop",
+    "cart": "Giỏ hàng",
+    "myProfile": "Trang cá nhân",
+    "contact": "Liên hệ",
+    "about": "Thông tin",
+    "name": "Tên",
+    "address": "Địa chỉ",
+    "home": "Trang chủ",
+    "register": "Đăng ký"
+  },
+  "cart": {
+    "cart": "Giỏ hàng",
+    "title": "Hóa Đơn Thanh Toán",
+    "totalProduct": "Tổng Sản Phẩm",
+    "totalPrice": "Tổng giá",
+    "payment": "Thanh toán",
+    "totalPayment": "Thành tiền",
+    "empty": "Chưa có sản phẩm"
+  },
+  "footer": {
+    "aboutContact": "Thông tin liên hệ"
+  },
+  "productDetail": {
+    "numberLike": "Lượt thích",
+    "price": "Giá",
+    "weight": "Cân nặng",
+    "sold": "Đã bán",
+    "totalNumber": "Tổng số lượng bán",
+    "modalBuy": {
+      "titleOder": "Lập hóa đơn",
+      "enterName": "Nhập họ và tên",
+      "enterNumberPhone": "Nhập số điện thoại",
+      "enterLinkFace": "Nhập link facebook của bạn (không bắt buộc)",
+      "enterGmail": "Nhập gmail (không bắt buộc)",
+      "enterAddress": "Nhập địa chỉ nhà (shipper ship hàng)",
+      "success": "Bạn mua hàng thành công",
+      "successDes": "Hóa đơn đã tạo. Bạn chú ý shipper gọi nhận hàng",
+      "error": "Mua hàng thất bại"
+    },
+    "productGood": "Sản phẩm có tốt không ?"
+  },
+  "placeholder": {
+    "enterContent": "Nhập nội dung"
+  },
+  "warning": {
+    "passAgain": "Mật khẩu nhập lại không đúng",
+    "noData": "Sản phẩm đang cập nhật",
+    "inValidPassWordAgain": "Mật khẩu không đúng",
+    "errorUserName": "Tên không được để trống",
+    "exitNumberPhone": "Số điện thoại đã đăng ký",
+    "errorSDT": "Số điện thoại chưa đúng định dạng",
+    "errorAddress": "Địa chỉ bắt buộc phải có",
+    "unPayMent": "Húy thanh toán",
+    "errorLogin": "Sai SĐT hoặc mật khẩu",
+    "unPayMent_des": "Nếu bản hủy sẽ không thanh toán đơn hàng này được !",
+    "doYouWantDetele": "Bạn có muốn xóa?",
+    "maxSizeFile": "File dụng lượng lớn hơn {size}"
+  },
+  "confirm": {
+    "mintNFT": {
+      "confirm": "Confirm mint NFT",
+      "confirm_des": "Waiting confirm your transaction",
+      "start": "Your transaction has started",
+      "start_des": "Waiting success your transaction",
+      "success": "Your transaction success",
+      "success_des": "Your transaction success. You can view transaction in scan"
+    },
+    "bill": {
+      "confirm": "Xác nhận mua hàng",
+      "confirm_des": "Shop sẽ liên hệ lại về hàng giá trị lớn. Kiểm tra kỹ trước khi nhận vì không thể sửa đơn hàng. ",
+      "createBill": "Đang tạo đơn hàng",
+      "createBill_Des": "Sau khi tạo xong. Bạn vào lịch sử đặt hàng kiểm tra tình trạng đơn hàng"
+    }
+  },
+  "success": {
+    "reply": "Trả lời thành công",
+    "login": "Đăng nhập thành công",
+    "create": "Tạo mới thành công",
+    "delete": "Xóa thành công",
+    "update": "Cập nhật thành công",
+    "feedback": "Cảm ơn bạn đã đánh giá"
+  },
+  "error": {
+    "supportTypeFile": "Hệ thống chỉ hộ trợ file",
+    "login": "Đăng nhập thất bại",
+    "create": "Tạo mới thất bại",
+    "delete": "Xóa thất bại",
+    "update": "Cập nhật thất bại",
+    "expiredLogin": "Hết hạn đăng nhập",
+    "feedback": "Đánh giá thất bài"
+  },
+  "errors": {
+    "create": "Tạo mới Thất bại",
+    "update": "Cập nhật thất bại",
+    "notEnoughGas": "Not enough gas fee",
+    "deniedTransaction": "Error: User denied process",
+    "somethingWrong": "Something went wrong with your transaction. Please wait a minute and try again.",
+    "insufficientBalance": "Insufficient balance",
+    "invalidAddress": "Invalid ID (42 characters start with 0x)",
+    "numberMustGreaterThanZero": "The number must be greater than zero!",
+    "numberMustGreaterThan": "The number must be greater than [number]!",
+    "noLogin": "Are you sure you want to proceed?",
+    "txtNoLogin": "register (Sign in)",
+    "notAllowed": "You are not allowed to create NFT",
+    "pageNotFound": "PAGE NOT FOUND",
+    "changeRpc": "Error Contract or Back-end, front-end",
+    "largerImage": "Ảnh có dung lượng qúa 5MB",
+    "passChanged": "Bạn đã đổi mật khẩu",
+    "loginAgain": "Đăng nhập lại",
+    "gmail": "Gamil chưa đúng định dạng",
+    "noInCorrectFormat": "Chưa đúng định dạng",
+    "empty": "Không được để trống",
+    "file": "File chưa đúng định dạng",
+    "existFile": "File đã tồn tại",
+    "invalidPass": "Mật khẩu chưa mã độc",
+    "inValueNumber": "Không phải là số",
+    "minimumPass": "Mật khảu tối thiểu 4 ký tự",
+    "minimumText": "Tối thiểu 4 ký tự",
+    "pinCode": "Pin code sai",
+    "maxNameUser": "Tên không quá 24 ký tự",
+    "sendMuchMessages": " Xin lỗi bạn, mong bạn chờ Shop phản hồi rồi nhắn tiếp ạ!"
+  },
+  "chat": {
+    "helloUser": "Xin chào bạn </br>Bạn cần Shop tư vấn gì ạ?"
+  },
+  "home": {
+    "titleCoffee": "Coffee",
+    "titleFood": "Đồ ăn",
+    "electronic": "Đồ công nghệ",
+    "water": "Nước uống",
+    "skinCare": "Sắc đẹp",
+    "homeWare": "Đồ gia dụng",
+    "fashion": "Thời trang",
+    "bestSeller": "Sản phẩm bán chạy"
+  },
+  "noti": {
+    "logOut": "Bạn đã đăng xuất",
+    "loginSuccess": "Đăng nhập thành công",
+    "loginError": "Sài SĐT name hoặc mật khẩu"
+  },
+  "myPage": {
+    "myOder": "Đơn hàng",
+    "myUser": "Tôi",
+    "updateSuccess": "Cập nhật thành công"
+  },
+  "voucher": {
+    "expired": "Hạn sử dụng",
+    "amountApplied": "Số người nhận"
+  },
+  "admin": {
+    "bill": {
+      "doYouWantChangeDelivering": "Xác nhận giao hàng",
+      "doYouWantChangeDeliverySuccess": "Đã giao thành công "
+    },
+    "revenue": "Doanh thu",
+    "subCategories": "Danh mục con",
+    "desSeo": "Đoạn văn mô tả để SEO web (tối đa 40 ký tự)",
+    "titleSeo": "Đoạn văn mô tả tiêu đề để SEO web (tối đa 24 ký tự)",
+    "infoDetail": "Thông tin chi tiết",
+    "imageMain": "HÌnh chính",
+    "imageThumbnail": "Hình phụ",
+    "color": {
+      "red": "Đỏ",
+      "pink": "Hồng",
+      "brown": "Nâu",
+      "orange": "Cam",
+      "yellow": "Vàng",
+      "black": "Đen",
+      "white": "Trắng",
+      "purple": "Tím",
+      "gray": "Xám",
+      "green": "Xanh lá",
+      "blue": "Xanh dương",
+      "grayBlack": "Xám đen",
+      "blueWhite": "Xanh trắng",
+      "brownWhite": "Nâu trắng",
+      "orangeWhite": "Cam trắng",
+      "whiteBlack": "Trắng đen"
+    }
+  },
+  "comment": {
+    "feedbackSuccess": "Cảm ơn bạn đánh giá",
+    "feedbackFail": "Đánh giá thật bại",
+    "veryGood": "Rất hài lòng",
+    "good": "Hài lòng",
+    "wellwell": "Khá hài lòng",
+    "normal": "Bình thường",
+    "bad": "Chưa tốt",
+    "writeToShare": "Chia sẻ nhận xét của bạn về sản phẩm này",
+    "uploadImg_des": "Gửi (chụp) hình  thực tế  (Tối đa 2 hình)"
+  },
+  "contactMe": {
+    "contactSuccess": "Bạn đã liên hệ thành công",
+    "contactFail": "Hệ thống bào trì, bạn hãy liên hệ ngày mai"
+  },
+  "feedback": {
+    "title": "ĐÁNH GIÁ CỦA BẠN VỀ SẢN PHẨM"
+  },
+  "pingServer": {
+    "title": "Hệ thống đang cập nhật",
+    "des": "Hệ thống cập nhật khoảng 5 phút, xin lỗi bạn với sự bất tiện này. </br> Bạn có thể nhất tiếp tục để xem trang web"
+  },
+  "banking": {
+    "title": "Thanh toán ngân hàng",
+    "bnaked": "Đã chuyển khoản",
+    "openApp": "Mở app",
+    "tracking": "Đang Kiểm tra ",
+    "idBanked": "Mã chuyển tiền"
+  },
+  "verifyNumberPhone": {
+    "manyRequest": "Hệ thống đang xử lý quá nhiều, làm phiền bạn thử lại 2 phút sau. Shop xin lỗi vì sự bất tiện này",
+    "title": "Xác thực số điện thoại",
+    "receiveCode": "Nhận code",
+    "verifyCode": "Xác thực code",
+    "verifyUser": "Xác thực người thật",
+    "note": "Bạn nhận được 1 tin nhắn với mã pin code 6 số, bạn nhập 6 số để tiếp tục. Đây là bước xác nhận là người thật"
+  }
+}

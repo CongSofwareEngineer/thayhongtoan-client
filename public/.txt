@@ -1,0 +1,3 @@
+google-site-verification=Sr2q2elTmvBwx7P3aM-ZiaH-3yjcxuGHrMI9H9iCewI
+
+vercel dns add tcstore.vercel.app '@' 'TXT' 'google-site-verification=Sr2q2elTmvBwx7P3aM-ZiaH-3yjcxuGHrMI9H9iCewI'

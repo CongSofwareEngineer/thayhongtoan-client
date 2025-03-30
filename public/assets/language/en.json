@@ -1,0 +1,73 @@
+{
+  "common": {
+    "login": "Login",
+    "close": "Close",
+    "Send": "send",
+    "buy": "Buy",
+    "buyNow": "Buy Now",
+    "addCart": "Add Cart"
+  },
+  "textPopular": {
+    "address": "address",
+    "hash": "Hash",
+    "time": "time",
+    "logOut": "Log out",
+    "tokenId": "Token ID",
+    "nameChain": "Chain",
+    "description": "Description",
+    "amount": "Amount",
+    "freeShip": "Free ship ",
+    "freeShip_des": "Free ship in since 15km"
+  },
+  "mintNFT": {
+    "addNewImg": "Add new image",
+    "mintNFT": "Mint NFT",
+    "coursers": "Coursers",
+    "student": "Student"
+  },
+  "myProfile": {
+    "myProfile": " My profile"
+  },
+  "header": {
+    "coffee": "Coffee Shop",
+    "pod": "pod Shop",
+    "cart": "Cart",
+    "myProfile": "My profile",
+    "contact": "Contact",
+    "about": "About"
+  },
+  "footer": {
+    "aboutContact": "About Contract"
+  },
+  "coffeeDetail": {
+    "numberLike": "Number Like",
+    "price": "Price",
+    "weight": "Weight",
+    "sold": "Sold",
+    "totalNumber": "Total number"
+  },
+  "confirm": {
+    "mintNFT": {
+      "confirm": "Confirm mint NFT",
+      "confirm_des": "Waiting confirm your transaction",
+      "start": "Your transaction has started",
+      "start_des": "Waiting success your transaction",
+      "success": "Your transaction success",
+      "success_des": "Your transaction success. You can view transaction in scan"
+    }
+  },
+  "errors": {
+    "notEnoughGas": "Not enough gas fee",
+    "deniedTransaction": "Error: User denied process",
+    "somethingWrong": "Something went wrong with your transaction. Please wait a minute and try again.",
+    "insufficientBalance": "Insufficient balance",
+    "invalidAddress": "Invalid ID (42 characters start with 0x)",
+    "numberMustGreaterThanZero": "The number must be greater than zero!",
+    "numberMustGreaterThan": "The number must be greater than [number]!",
+    "noLogin": "Are you sure you want to proceed?",
+    "txtNoLogin": "register (Sign in)",
+    "notAllowed": "You are not allowed to create NFT",
+    "pageNotFound": "PAGE NOT FOUND",
+    "changeRpc": "Error Contract or Back-end, front-end"
+  }
+}

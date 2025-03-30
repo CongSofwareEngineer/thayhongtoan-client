@@ -1,0 +1,13 @@
+.item-coffee {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+
+  &:hover {
+    @media screen and (min-width: 769px) {
+      transform: calc(1.05);
+    }
+
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+}

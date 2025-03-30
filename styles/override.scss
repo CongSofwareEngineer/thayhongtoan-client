@@ -1,0 +1,61 @@
+.yoo-image-flex {
+  height: auto !important;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: transparent;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  /* // background: transparent;
+  // background: rgb(192, 215, 169) !important; */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+}
+
+::-webkit-resizer {
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent !important;
+  cursor: pointer;
+}
+
+.hide-scroll {
+  ::-webkit-scrollbar {
+    background-color: transparent !important;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent !important;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: transparent !important;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: transparent !important;
+  }
+
+  ::-webkit-resizer {
+    background: transparent !important;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent !important;
+  }
+}
