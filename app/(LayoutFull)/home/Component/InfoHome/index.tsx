@@ -1,27 +1,49 @@
-
-import MyImage from '@/components/MyImage'
-import { images } from '@/config/images'
+import { ClassIcon } from '@/components/Icons/Class'
+import { SettingIcon } from '@/components/Icons/Setting'
+import { UserCircleIcon } from '@/components/Icons/UserCircle'
 
 const InfoHome = () => {
-  const renderItem = (image: string, title: string, des: string) => {
-    return (
-      <div className='flex gap-4 flex-1 items-center justify-center ' data-aos='zoom-in'>
-        <div className='w-14 h-14'>
-          <MyImage fill alt={`info-home-${title}`} className='!relative !h-auto' src={image} />
-        </div>
-        <div className='flex-1 justify-start items-start'>
-          <div className='uppercase font-semibold text-medium'>{title}</div>
-          <div>{des}</div>
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div className='w-full flex flex-col md:p-12 p-5 md:flex-row gap-8 md:gap-7 justify-between md:mt-8'>
-      {renderItem(images.icons.iconResponsibility, 'TINH THẦN VÀ TRÁCH NHIỆM', 'Mỗi sản phẩm là biểu hiện trí tuệ và công sức bỏ ra.')}
-      {renderItem(images.icons.iconShield, 'CAM KẾT CHẤT LƯỢNG', 'Sản phẩm chúng tôi 100% chất lượng và tự nhiên.')}
-      {renderItem(images.icons.iconSupport, 'CHĂM SÓC KHÁCH HÀNG 24/7', 'Hỗ trợ và giải đáp thắc mắc các thông tin 24/7.')}
+    <div id='why' className='flex flex-col gap-10'>
+      <div className='text-center'>
+        <h2 className='text-2xl font-extrabold sm:text-3xl'>Tại sao chọn thầy Hồng?</h2>
+        <p className='mt-2 text-sm text-white/60 sm:text-base'>Phương pháp giảng dạy khoa học, tận tâm với từng học sinh</p>
+      </div>
+
+      <div className='grid grid-cols-1 gap-5 md:grid-cols-3'>
+        {[
+          {
+            title: 'Luyện chữ đẹp',
+            desc: 'Rèn luyện nét chữ nết người, phương pháp khoa học',
+            icon: ClassIcon,
+          },
+          {
+            title: 'Toán tư duy',
+            desc: 'Phát triển khả năng logic và sáng tạo cho trẻ',
+            icon: SettingIcon,
+          },
+          {
+            title: 'Tận tâm',
+            desc: 'Mỗi học sinh được quan tâm và hướng dẫn riêng',
+            icon: UserCircleIcon,
+          },
+        ].map((it) => {
+          const Icon = it.icon
+          return (
+            <div
+              key={it.title}
+              className='rounded-2xl border border-white/10 bg-white/5 p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] backdrop-blur'
+              data-aos='zoom-in'
+            >
+              <div className='flex h-12 w-12 items-center justify-center rounded-2xl bg-default/20 text-default'>
+                <Icon className='size-6' />
+              </div>
+              <div className='mt-4 font-semibold'>{it.title}</div>
+              <div className='mt-2 text-sm text-white/60'>{it.desc}</div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

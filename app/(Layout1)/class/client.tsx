@@ -1,160 +1,289 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import { Tooltip } from '@heroui/tooltip'
-import { SortDescriptor } from '@heroui/table'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 
-import { MyButton, MyInput, MyTable } from '@/components'
+import { MyButton, MyDropdown } from '@/components'
 import useGetClass from '@/hooks/react-query/useGetClass'
 import useLanguage from '@/hooks/useLanguage'
-import { IClass, IClassFilter } from '@/services/API/Class/type'
+import { IClass } from '@/services/API/Class/type'
 import { ITeacher } from '@/services/API/Teacher/type'
 import { numberWithCommas } from '@/utils/functions'
-import useQuerySearch from '@/hooks/useQuerySearch'
-import useDebounce from '@/hooks/useDebounce'
 import { cn } from '@/utils/tailwind'
-import useUser from '@/hooks/useUser'
 import { FilterIcon } from '@/components/Icons/Filter'
+import { ArrowDownIcon } from '@/components/Icons/ArrowDown'
+import { LightBulbIcon } from '@/components/Icons/LightBulb'
+import { SparklesIcon } from '@/components/Icons/Sparkles'
+import { PenNibIcon } from '@/components/Icons/PenNib'
+import { BrainIcon } from '@/components/Icons/Brain'
 
-const ClassAdminScreen = () => {
-  const { translate, lang } = useLanguage()
-  const { user } = useUser()
-  const router = useRouter()
-  const { query, updateQuery, clearAll } = useQuerySearch<IClassFilter>()
+type CategoryKey = 'all' | 'logic' | 'skill' | 'writing' | 'thinking'
 
-  const [searchName, setSearchName] = useState<string>(query.name || '')
-  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
-    column: 'price',
-    direction: 'ascending',
-  })
+const getCategory = (name: string): Exclude<CategoryKey, 'all'> => {
+  const n = name.toLowerCase()
+  if (n.includes('logic')) return 'logic'
+  if (n.includes('tư duy') || n.includes('tu duy') || n.includes('soroban')) return 'thinking'
+  if (n.includes('chữ') || n.includes('chu') || n.includes('luyện chữ') || n.includes('luyen chu')) return 'writing'
+  return 'skill'
+}
 
-  const valueSearchDebounce = useDebounce(searchName, 500)
+const getCategoryLabel = (key: Exclude<CategoryKey, 'all'>) => {
+  switch (key) {
+    case 'logic':
+      return 'Toán logic'
+    case 'thinking':
+      return 'Toán tư duy'
+    case 'writing':
+      return 'Luyện chữ'
+    case 'skill':
+    default:
+      return 'Kỹ năng khác'
+  }
+}
 
-  useEffect(() => {
-    updateQuery('name', valueSearchDebounce)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [valueSearchDebounce])
-
-  const { data: classes = [], isLoading, fetchNextPage, hasNextPage } = useGetClass(query)
-
-  const sortedItems = useMemo(() => {
-    return [...classes].sort((a: IClass, b: IClass) => {
-      const first = a[sortDescriptor.column as keyof IClass] as number
-      const second = b[sortDescriptor.column as keyof IClass] as number
-      const cmp = first < second ? -1 : first > second ? 1 : 0
-
-      return sortDescriptor.direction === 'descending' ? -cmp : cmp
-    })
-  }, [sortDescriptor, classes])
-
-  const handleSearch = (value: string) => {
-    setSearchName(value)
+const getAgeText = (name: string) => {
+  const normalized = name.toLowerCase()
+  const matchAge = normalized.match(/(\d{1,2})\s*[-–]\s*(\d{1,2})\s*tuổi/)
+  if (matchAge?.[1] && matchAge?.[2]) {
+    return `${matchAge[1]}-${matchAge[2]} tuổi`
   }
 
-  const columns = [
-    { key: 'name', label: translate('admin.name') },
-    { key: 'teacher', label: translate('admin.teacher') },
-    { key: 'price', label: translate('admin.amount') || 'Giá', allowSorting: true },
-    { key: 'numberStudent', label: translate('admin.phone') || 'Số lượng học sinh' },
-    { key: 'time', label: translate('admin.time') || 'Thời gian' },
-    { key: 'actions', label: translate('admin.actions') || 'Hành động' },
-  ]
-
-  const renderCell = (item: IClass, columnKey: string) => {
-    switch (columnKey) {
-      case 'name':
-        return item.name
-      case 'teacher':
-        return (item.idTeacher as ITeacher)?.name || 'Thầy Hồng'
-      case 'price':
-        return numberWithCommas(item.price, true) + ' VNĐ'
-      case 'numberStudent':
-        return `${item.numberStudent || 0} học sinh`
-      case 'time':
-        return item.attributes?.time || 'N/A'
-      case 'actions':
-        return (
-          <div className='flex items-center gap-2'>
-            <MyButton color='primary' size='sm' variant='flat' onPress={() => router.push(`/register?idClass=${item._id}`)}>
-              {translate('common.register') || 'Đăng ký'}
-            </MyButton>
-            <MyButton color='secondary' size='sm' variant='flat' onPress={() => router.push(`/admin/student?idClass=${item._id}`)}>
-              {translate('admin.listStudent') || 'DS Học sinh'}
-            </MyButton>
-          </div>
-        )
-      default:
-        return null
+  const matchGrade = normalized.match(/lớp\s*(\d{1,2})\s*[-–]\s*(\d{1,2})/)
+  if (matchGrade?.[1] && matchGrade?.[2]) {
+    const g1 = Number(matchGrade[1])
+    const g2 = Number(matchGrade[2])
+    if (!Number.isNaN(g1) && !Number.isNaN(g2)) {
+      const minAge = Math.max(4, g1 + 5)
+      const maxAge = Math.max(minAge, g2 + 6)
+      return `${minAge}-${maxAge} tuổi`
     }
   }
 
-  const renderMobileItem = (item: IClass) => {
+  const cat = getCategory(name)
+  if (cat === 'writing') return '6-8 tuổi'
+  if (cat === 'thinking') return '8-10 tuổi'
+  if (cat === 'logic') return '9-12 tuổi'
+  return '5-8 tuổi'
+}
+
+const categoryMeta: Record<Exclude<CategoryKey, 'all'>, { Icon: any; headerClass: string }> = {
+  logic: {
+    Icon: LightBulbIcon,
+    headerClass: 'from-default/25 to-default/5',
+  },
+  skill: {
+    Icon: SparklesIcon,
+    headerClass: 'from-primary/20 to-primary/5',
+  },
+  writing: {
+    Icon: PenNibIcon,
+    headerClass: 'from-primary/15 to-primary/5',
+  },
+  thinking: {
+    Icon: BrainIcon,
+    headerClass: 'from-default/20 to-default/5',
+  },
+}
+
+const ClassScreen = () => {
+  const { translate } = useLanguage()
+  const router = useRouter()
+  const [selectedCategory, setSelectedCategory] = useState<CategoryKey>('all')
+  const [openId, setOpenId] = useState<string | null>(null)
+
+  const { data: classes = [], isLoading, fetchNextPage, hasNextPage } = useGetClass({})
+
+  const items = useMemo(() => {
+    const filtered =
+      selectedCategory === 'all'
+        ? classes
+        : classes.filter((c) => {
+            const cat = getCategory(c.name)
+            return cat === selectedCategory
+          })
+    return [...filtered].sort((a, b) => (a.price || 0) - (b.price || 0))
+  }, [classes, selectedCategory])
+
+  const renderCard = (item: IClass) => {
+    const id = item._id || `${item.name}-${item.price}`
+    const teacherName = (item.idTeacher as ITeacher)?.name || 'Thầy Hồng'
+    const timeText = item.attributes?.time || 'N/A'
+    const categoryKey = getCategory(item.name)
+    const { Icon, headerClass } = categoryMeta[categoryKey]
+    const showDetail = openId === id
+
     return (
-      <div className='flex flex-col gap-3'>
-        <div className='flex justify-between items-start'>
+      <div key={id} className='overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]'>
+        <div className={cn('relative h-28 bg-gradient-to-b', headerClass)}>
+          <div className='absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-neutral-950/60' />
+
+          <div className='absolute left-4 top-4 rounded-md bg-neutral-950/60 px-2 py-1 text-xs font-semibold text-white/85 backdrop-blur'>
+            {getCategoryLabel(categoryKey)}
+          </div>
+          <div className='absolute right-4 top-4 rounded-md bg-primary px-2 py-1 text-xs font-semibold text-black'>
+            Còn {item.numberStudent || 0} chỗ
+          </div>
+
+          <div className='absolute inset-0 flex items-center justify-center'>
+            <Icon className='size-12 text-default/70' />
+          </div>
+        </div>
+
+        <div className='flex flex-col gap-3 p-5'>
           <div>
-            <h3 className='text-lg font-bold text-primary'>{item.name}</h3>
-            <p className='text-small text-default-500'>{(item.idTeacher as ITeacher)?.name || 'Thầy Hồng'}</p>
+            <div className='text-lg font-bold'>{item.name}</div>
+            <div className='mt-1 text-sm text-white/60'>{item.note || 'Lộ trình rõ ràng, học theo tiến độ phù hợp.'}</div>
           </div>
-          <div className='bg-primary/10 text-primary px-2 py-1 rounded-md text-small font-semibold'>{numberWithCommas(item.price, true)} VNĐ</div>
-        </div>
 
-        <div className='flex flex-col gap-1 text-small'>
-          <div className='flex justify-between'>
-            <span className='text-default-500'>{translate('admin.time') || 'Thời gian'}:</span>
-            <span>{item.attributes?.time || 'N/A'}</span>
+          <div className='space-y-2 text-sm text-white/75'>
+            <div className='flex items-center gap-2'>
+              <span className='inline-flex size-5 items-center justify-center rounded-md bg-white/5 text-white/70'>
+                <svg className='size-4' fill='none' stroke='currentColor' strokeWidth={1.5} viewBox='0 0 24 24'>
+                  <path
+                    d='M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  />
+                </svg>
+              </span>
+              <span className='text-white/60'>Độ tuổi:</span>
+              <span>{getAgeText(item.name)}</span>
+            </div>
+            <div className='flex items-center gap-2'>
+              <span className='inline-flex size-5 items-center justify-center rounded-md bg-white/5 text-white/70'>
+                <svg className='size-4' fill='none' stroke='currentColor' strokeWidth={1.5} viewBox='0 0 24 24'>
+                  <path
+                    d='M8.25 6.75h7.5m-7.5 3h7.5m-9 6h10.5M6.75 3.75h10.5A2.25 2.25 0 0 1 19.5 6v12A2.25 2.25 0 0 1 17.25 20.25H6.75A2.25 2.25 0 0 1 4.5 18V6A2.25 2.25 0 0 1 6.75 3.75Z'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  />
+                </svg>
+              </span>
+              <span className='text-white/60'>Lịch:</span>
+              <span className='truncate'>{timeText}</span>
+            </div>
           </div>
-          <div className='flex justify-between'>
-            <span className='text-default-500'>{translate('admin.phone') || 'Số lượng'}:</span>
-            <span>{item.numberStudent || 0} học sinh</span>
-          </div>
-        </div>
 
-        <div className='flex gap-2 mt-2 pt-2 border-t border-default-100'>
-          <MyButton className='flex-1' color='primary' size='sm' variant='flat' onPress={() => router.push(`/register?idClass=${item._id}`)}>
-            {translate('common.register') || 'Đăng ký'}
-          </MyButton>
-          <MyButton className='flex-1' color='secondary' size='sm' variant='flat' onPress={() => router.push(`/admin/student?idClass=${item._id}`)}>
-            {translate('admin.listStudent') || 'DS Học sinh'}
-          </MyButton>
+          <div className='text-primary font-extrabold'>{numberWithCommas(item.price, true)} đ/tháng</div>
+
+          {showDetail && (
+            <div className='rounded-xl border border-white/10 bg-neutral-950/40 p-4 text-sm text-white/70'>
+              <div className='flex items-center justify-between gap-3'>
+                <div className='font-semibold text-white'>Thông tin lớp</div>
+                <div className='text-xs text-white/60'>{teacherName}</div>
+              </div>
+              <div className='mt-2 space-y-1'>
+                {item.note && <div>{item.note}</div>}
+                <div className='text-white/60'>Thời gian: {timeText}</div>
+              </div>
+            </div>
+          )}
+
+          <div className='mt-1 flex gap-3'>
+            <MyButton
+              className='flex-1 border-white/10 bg-white/0 text-white hover:bg-white/5'
+              color='default'
+              radius='sm'
+              size='sm'
+              variant='bordered'
+              onPress={() => setOpenId((prev) => (prev === id ? null : id))}
+            >
+              Xem chi tiết
+            </MyButton>
+            <MyButton
+              className='flex-1'
+              color='default'
+              radius='sm'
+              size='sm'
+              variant='solid'
+              onPress={() => router.push(`/register?idClass=${item._id}`)}
+            >
+              Đăng ký
+            </MyButton>
+          </div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className={cn('flex flex-col gap-6 w-full py-8')}>
-      <div className='flex justify-between items-center gap-4 flex-wrap'>
-        <h1 className={cn('text-3xl font-bold')}>{translate('admin.classManagement')}</h1>
-        <div className='flex gap-4 items-center'>
-          <MyInput placeholder={translate('admin.searchName') || 'Tìm kiếm tên'} value={searchName} onChange={(e) => handleSearch(e.target.value)} />
-          <Tooltip content={translate('common.noData') || 'Xóa bộ lọc'}>
-            <MyButton isIconOnly color='warning' onPress={clearAll}>
+    <main className='w-full bg-neutral-950 text-white'>
+      <section className='relative overflow-hidden'>
+        <div className='absolute inset-0'>
+          <div className='absolute inset-0 bg-gradient-to-b from-neutral-950/30 via-neutral-950/95 to-neutral-950' />
+          <div className='absolute -left-40 top-24 h-80 w-80 rounded-full bg-default/25 blur-3xl' />
+          <div className='absolute -right-44 top-10 h-96 w-96 rounded-full bg-primary/10 blur-3xl' />
+        </div>
+
+        <div className='relative mx-auto w-full max-w-7xl px-5 py-14 md:px-12 md:py-20'>
+          <div className='text-center'>
+            <h1 className='text-4xl font-extrabold sm:text-5xl'>Các lớp học</h1>
+            <p className='mt-3 text-sm text-white/60 sm:text-base'>
+              Khám phá các lớp học phù hợp với con bạn, từ luyện chữ đến toán tư duy
+            </p>
+          </div>
+
+          <div className='mt-10 flex items-center gap-3'>
+            <div className='text-white/70'>
               <FilterIcon />
-            </MyButton>
-          </Tooltip>
-          {user && (
-            <MyButton color='primary' onPress={() => {}}>
-              {translate('common.create') || 'Thêm mới'}
-            </MyButton>
+            </div>
+
+            <MyDropdown
+              options={[
+                { key: 'all', label: 'Tất cả' },
+                { key: 'logic', label: 'Toán logic' },
+                { key: 'thinking', label: 'Toán tư duy' },
+                { key: 'writing', label: 'Luyện chữ' },
+                { key: 'skill', label: 'Kỹ năng khác' },
+              ]}
+              configDropdownMenu={{
+                className: 'bg-neutral-950 text-white border border-white/10',
+                onAction: (key) => setSelectedCategory(key as CategoryKey),
+              }}
+            >
+              <MyButton
+                className='min-w-44 justify-between border-white/10 bg-white/5 text-white'
+                color='default'
+                endContent={<ArrowDownIcon className='size-4 text-white/70' />}
+                radius='sm'
+                size='sm'
+                variant='bordered'
+              >
+                {selectedCategory === 'all' ? 'Tất cả' : getCategoryLabel(selectedCategory)}
+              </MyButton>
+            </MyDropdown>
+          </div>
+
+          <div className='mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3'>
+            {items.map(renderCard)}
+
+            {isLoading &&
+              items.length === 0 &&
+              Array.from({ length: 6 }).map((_, idx) => (
+                <div key={idx} className='animate-pulse overflow-hidden rounded-2xl border border-white/10 bg-white/5'>
+                  <div className='h-28 bg-white/5' />
+                  <div className='p-5 space-y-3'>
+                    <div className='h-4 w-2/3 rounded bg-white/10' />
+                    <div className='h-3 w-full rounded bg-white/10' />
+                    <div className='h-3 w-1/2 rounded bg-white/10' />
+                    <div className='h-9 w-full rounded bg-white/10' />
+                  </div>
+                </div>
+              ))}
+          </div>
+
+          {!isLoading && items.length === 0 && <div className='text-center text-white/60 py-10'>{translate('common.noData')}</div>}
+
+          {hasNextPage && (
+            <div className='flex justify-center mt-8'>
+              <MyButton className='min-w-40' color='primary' isLoading={isLoading} radius='sm' variant='solid' onClick={fetchNextPage}>
+                {translate('common.loadMore')}
+              </MyButton>
+            </div>
           )}
         </div>
-      </div>
-
-      <MyTable
-        ariaLabel='Class Table'
-        columns={columns}
-        hasNextPage={hasNextPage}
-        isLoading={isLoading}
-        items={sortedItems}
-        renderCell={renderCell}
-        renderMobileItem={renderMobileItem}
-        sortDescriptor={sortDescriptor}
-        onLoadMore={fetchNextPage}
-        onSortChange={setSortDescriptor}
-      />
-    </div>
+      </section>
+    </main>
   )
 }
 
-export default ClassAdminScreen
+export default ClassScreen

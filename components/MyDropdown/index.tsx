@@ -7,7 +7,7 @@ export type OptionDropdown = Array<{ label: ReactNode; key: string }>
 type Props = {
   options: OptionDropdown
   configItem?: DropdownItemProps
-  configDropdownMenu?: DropdownMenuProps
+  configDropdownMenu?: Omit<DropdownMenuProps, 'children'>
 } & Omit<DropdownProps, 'children'> & {
     children?: ReactNode
   }
