@@ -2,7 +2,9 @@
 import React from 'react'
 import { Tooltip } from '@heroui/tooltip'
 
-import { MyButton, MyInput, MyTable } from '@/components'
+import MyButton from '@/components/MyButton'
+import MyInput from '@/components/MyInput'
+import MyTable from '@/components/MyTable'
 import useGetParent from '@/hooks/react-query/useGetParent'
 import useQuerySearch from '@/hooks/useQuerySearch'
 import useLanguage from '@/hooks/useLanguage'

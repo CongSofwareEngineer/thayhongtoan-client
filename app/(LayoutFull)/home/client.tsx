@@ -6,9 +6,9 @@ import { useRouter } from 'next/navigation'
 import InfoHome from './Component/InfoHome'
 import SocialMedia from './Component/SocialMedia'
 
-import { MyButton } from '@/components'
 import { images } from '@/config/images'
 import useLanguage from '@/hooks/useLanguage'
+import MyButton from '@/components/MyButton'
 
 function HomeScreen() {
   const { translate } = useLanguage()
@@ -47,8 +47,8 @@ function HomeScreen() {
                 <MyButton
                   className='min-w-44 font-semibold'
                   color='primary'
-                  size='lg'
                   radius='sm'
+                  size='lg'
                   variant='solid'
                   onPress={() => router.push('/class')}
                 >
@@ -57,8 +57,8 @@ function HomeScreen() {
                 <MyButton
                   className='min-w-44 border-white/20 text-white'
                   color='default'
-                  size='lg'
                   radius='sm'
+                  size='lg'
                   variant='bordered'
                   onPress={() => document.getElementById('why')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
                 >
@@ -124,9 +124,7 @@ function HomeScreen() {
           <div className='absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/15 blur-3xl' />
           <div className='relative mx-auto flex max-w-3xl flex-col items-center text-center'>
             <h3 className='text-3xl font-extrabold sm:text-4xl'>Sẵn sàng cho hành trình mới?</h3>
-            <p className='mt-3 text-sm text-white/80 sm:text-base'>
-              Đăng ký ngay hôm nay để con bạn được trải nghiệm phương pháp học tập hiệu quả.
-            </p>
+            <p className='mt-3 text-sm text-white/80 sm:text-base'>Đăng ký ngay hôm nay để con bạn được trải nghiệm phương pháp học tập hiệu quả.</p>
             <MyButton
               className='mt-7 min-w-44 font-semibold'
               color='primary'

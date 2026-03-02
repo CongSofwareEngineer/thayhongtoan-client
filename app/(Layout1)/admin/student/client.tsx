@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { Tooltip } from '@heroui/tooltip'
 import { SortDescriptor } from '@heroui/table'
 
-import { MyButton, MyInput, MyTable } from '@/components'
 import useLanguage from '@/hooks/useLanguage'
 import useGetStudent from '@/hooks/react-query/useGetStudent'
 import useQuerySearch from '@/hooks/useQuerySearch'
@@ -13,6 +12,9 @@ import { IClass } from '@/services/API/Class/type'
 import { IStudentFilter } from '@/services/API/Student/type'
 import { cn } from '@/utils/tailwind'
 import { FilterIcon } from '@/components/Icons/Filter'
+import MyButton from '@/components/MyButton'
+import MyInput from '@/components/MyInput'
+import MyTable from '@/components/MyTable'
 
 const StudentAdminScreen = () => {
   const { translate } = useLanguage()

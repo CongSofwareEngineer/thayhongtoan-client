@@ -2,7 +2,8 @@
 import { useRouter } from 'next/navigation'
 import { useMemo, useState } from 'react'
 
-import { MyButton, MyDropdown } from '@/components'
+import MyButton from '@/components/MyButton'
+import MyDropdown from '@/components/MyDropdown'
 import useGetClass from '@/hooks/react-query/useGetClass'
 import useLanguage from '@/hooks/useLanguage'
 import { IClass } from '@/services/API/Class/type'

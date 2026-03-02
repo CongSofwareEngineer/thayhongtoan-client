@@ -8,7 +8,7 @@ import { IAttendance } from '@/services/API/Attendance/type'
 import { IClass } from '@/services/API/Class/type'
 import { IStudent } from '@/services/API/Student/type'
 import { cn } from '@/utils/tailwind'
-import { MyTable } from '@/components'
+import MyTable from '@/components/MyTable'
 
 const AttendanceAdminScreen = () => {
   const { translate } = useLanguage()

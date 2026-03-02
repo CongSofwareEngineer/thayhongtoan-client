@@ -5,7 +5,7 @@ import useLanguage from '@/hooks/useLanguage'
 import useGetTeacher from '@/hooks/react-query/useGetTeacher'
 import { ITeacher } from '@/services/API/Teacher/type'
 import { cn } from '@/utils/tailwind'
-import { MyTable } from '@/components'
+import MyTable from '@/components/MyTable'
 
 const TeacherAdminScreen = () => {
   const { translate } = useLanguage()
