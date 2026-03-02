@@ -15,10 +15,10 @@ function HomeScreen() {
   const router = useRouter()
 
   return (
-    <main className='w-full bg-neutral-950 text-white'>
+    <section className='w-full bg-neutral-950 text-white'>
       <SocialMedia />
 
-      <section className='relative overflow-hidden'>
+      <div className='relative overflow-hidden'>
         <div className='absolute inset-0'>
           <Image fill priority alt='banner' className='object-cover opacity-35 blur-[2px]' sizes='100vw' src={images.home.banner} />
           <div className='absolute inset-0 bg-gradient-to-b from-neutral-950/30 via-neutral-950/90 to-neutral-950' />
@@ -97,9 +97,9 @@ function HomeScreen() {
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className='border-y border-white/5 bg-neutral-950/60'>
+      <div className='border-y border-white/5 bg-neutral-950/60'>
         <div className='mx-auto grid w-full max-w-7xl grid-cols-1 gap-8 px-5 py-10 md:grid-cols-3 md:px-12'>
           {[
             { value: '500+', label: 'Học sinh đã dạy' },
@@ -112,13 +112,13 @@ function HomeScreen() {
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      <section className='mx-auto w-full max-w-7xl px-5 py-14 md:px-12 md:py-20'>
+      <div className='mx-auto w-full max-w-7xl px-5 py-14 md:px-12 md:py-20'>
         <InfoHome />
-      </section>
+      </div>
 
-      <section className='mx-auto w-full max-w-7xl px-5 pb-16 md:px-12 md:pb-24'>
+      <div className='mx-auto w-full max-w-7xl px-5 pb-16 md:px-12 md:pb-24'>
         <div className='relative overflow-hidden rounded-3xl border border-white/10 bg-default/60 px-6 py-14 shadow-2xl md:px-12'>
           <div className='absolute inset-0 bg-gradient-to-r from-default/35 via-default/70 to-default/35' />
           <div className='absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/15 blur-3xl' />
@@ -137,8 +137,8 @@ function HomeScreen() {
             </MyButton>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   )
 }
 
