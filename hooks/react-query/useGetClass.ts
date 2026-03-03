@@ -6,12 +6,12 @@ import { QUERY_KEY } from '@/constants/reactQuery'
 import { IClass, IClassFilter } from '@/services/API/Class/type'
 import ClassAPI from '@/services/API/Class'
 
-const useGetClass = (query: IClassFilter = {}, limit = PAGE_SIZE_LIMIT) => {
+const useGetClass = (query: IClassFilter = {}) => {
   const { data, isLoading, isError, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
     initialPageParam: 1,
     queryKey: [QUERY_KEY.Class, query],
     queryFn: async ({ pageParam = 1 }) => {
-      const response = await ClassAPI.get('get-all', { ...query, page: pageParam, limit })
+      const response = await ClassAPI.get('get-all', { ...query, page: pageParam, limit: query?.limit || PAGE_SIZE_LIMIT })
 
       return {
         data: response?.data || [],
@@ -19,7 +19,7 @@ const useGetClass = (query: IClassFilter = {}, limit = PAGE_SIZE_LIMIT) => {
       }
     },
     getNextPageParam: (lastPage: { data: IClass[]; page: number }) => {
-      if (lastPage?.data?.length === limit) {
+      if (lastPage?.data?.length === query?.limit || PAGE_SIZE_LIMIT) {
         return lastPage.page + 1
       }
 

@@ -16,7 +16,7 @@ const useQuerySearch = <T extends object>() => {
   }
 
   const { data: query } = useQuery<T>({
-    queryKey: ['useQuerySearch', searchParam.toString()],
+    queryKey: ['useQuerySearch', pathPage, searchParam.toString()],
     queryFn: parseQuery,
     staleTime: Infinity,
     gcTime: Infinity,

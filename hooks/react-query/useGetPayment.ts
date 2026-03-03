@@ -6,12 +6,12 @@ import { QUERY_KEY } from '@/constants/reactQuery'
 import PaymentAPI from '@/services/API/Payment'
 import { IPayment, IPaymentFilter } from '@/services/API/Payment/type'
 
-const useGetPayment = (query: IPaymentFilter = {}, limit = PAGE_SIZE_LIMIT) => {
+const useGetPayment = (query: IPaymentFilter = {}) => {
   const { data, isLoading, isError, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
     initialPageParam: 1,
     queryKey: [QUERY_KEY.Payment, query],
     queryFn: async ({ pageParam = 1 }) => {
-      const response = await PaymentAPI.get('', { ...query, page: pageParam, limit })
+      const response = await PaymentAPI.get('', { ...query, page: pageParam, limit: query?.limit || PAGE_SIZE_LIMIT })
 
       return {
         data: response?.data || [],
@@ -19,7 +19,7 @@ const useGetPayment = (query: IPaymentFilter = {}, limit = PAGE_SIZE_LIMIT) => {
       }
     },
     getNextPageParam: (lastPage: { data: IPayment[]; page: number }) => {
-      if (lastPage?.data?.length === limit) {
+      if (lastPage?.data?.length === query?.limit || PAGE_SIZE_LIMIT) {
         return lastPage.page + 1
       }
 

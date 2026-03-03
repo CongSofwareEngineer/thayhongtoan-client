@@ -6,12 +6,12 @@ import { QUERY_KEY } from '@/constants/reactQuery'
 import StudentAPI from '@/services/API/Student'
 import { IStudent, IStudentFilter } from '@/services/API/Student/type'
 
-const useGetStudent = (query: IStudentFilter = {}, limit = PAGE_SIZE_LIMIT) => {
+const useGetStudent = (query: IStudentFilter = {}) => {
   const { data, isLoading, isError, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
     initialPageParam: 1,
     queryKey: [QUERY_KEY.Student, query],
     queryFn: async ({ pageParam = 1 }) => {
-      const response = await StudentAPI.get('all', { ...query, page: pageParam, limit })
+      const response = await StudentAPI.get('all', { ...query, page: pageParam, limit: query?.limit || PAGE_SIZE_LIMIT })
 
       return {
         data: response?.data || [],
@@ -19,7 +19,7 @@ const useGetStudent = (query: IStudentFilter = {}, limit = PAGE_SIZE_LIMIT) => {
       }
     },
     getNextPageParam: (lastPage: { data: IStudent[]; page: number }) => {
-      if (lastPage?.data?.length === limit) {
+      if (lastPage?.data?.length === query?.limit || PAGE_SIZE_LIMIT) {
         return lastPage.page + 1
       }
 

@@ -276,10 +276,10 @@ const RegisterPageClient = () => {
   }
 
   return (
-    <div className='max-w-4xl mx-auto p-6'>
+    <div className='max-w-4xl mx-auto p-6 w-full'>
       <h1 className='text-3xl font-bold mb-8 text-center'>{translate('register.register')}</h1>
 
-      <MyForm className='flex flex-col gap-8 md:min-w-[600px]'>
+      <MyForm className='flex flex-col gap-8 md:min-w-[600px] w-full'>
         {/* Parent Section */}
         <div className='bg-content1 rounded-large p-6 shadow-small w-full'>
           <h2 className='text-xl font-bold mb-4'>{translate('register.parentInfo')}</h2>

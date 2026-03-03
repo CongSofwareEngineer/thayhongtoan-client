@@ -6,12 +6,12 @@ import { QUERY_KEY } from '@/constants/reactQuery'
 import TeacherAPI from '@/services/API/Teacher'
 import { ITeacher, ITeacherFilter } from '@/services/API/Teacher/type'
 
-const useGetTeacher = (query: ITeacherFilter = {}, limit = PAGE_SIZE_LIMIT) => {
+const useGetTeacher = (query: ITeacherFilter = {}) => {
   const { data, isLoading, isError, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
     initialPageParam: 1,
     queryKey: [QUERY_KEY.Teacher, query],
     queryFn: async ({ pageParam = 1 }) => {
-      const response = await TeacherAPI.get('', { ...query, page: pageParam, limit })
+      const response = await TeacherAPI.get('', { ...query, page: pageParam, limit: query?.limit || PAGE_SIZE_LIMIT })
 
       return {
         data: response?.data || [],
@@ -19,7 +19,7 @@ const useGetTeacher = (query: ITeacherFilter = {}, limit = PAGE_SIZE_LIMIT) => {
       }
     },
     getNextPageParam: (lastPage: { data: ITeacher[]; page: number }) => {
-      if (lastPage?.data?.length === limit) {
+      if (lastPage?.data?.length === query?.limit || PAGE_SIZE_LIMIT) {
         return lastPage.page + 1
       }
 

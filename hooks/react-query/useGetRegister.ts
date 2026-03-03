@@ -6,12 +6,12 @@ import { QUERY_KEY } from '@/constants/reactQuery'
 import RegisterAPI from '@/services/API/Register'
 import { IRegister, IRegisterFilter } from '@/services/API/Register/type'
 
-const useGetRegister = (query: IRegisterFilter = {}, limit = PAGE_SIZE_LIMIT) => {
+const useGetRegister = (query: IRegisterFilter = {}) => {
   const { data, isLoading, isError, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
     initialPageParam: 1,
     queryKey: [QUERY_KEY.Register, query],
     queryFn: async ({ pageParam = 1 }) => {
-      const response = await RegisterAPI.get('', { ...query, page: pageParam, limit })
+      const response = await RegisterAPI.get('', { ...query, page: pageParam, limit: query?.limit || PAGE_SIZE_LIMIT })
 
       return {
         data: response?.data || [],
@@ -19,7 +19,7 @@ const useGetRegister = (query: IRegisterFilter = {}, limit = PAGE_SIZE_LIMIT) =>
       }
     },
     getNextPageParam: (lastPage: { data: IRegister[]; page: number }) => {
-      if (lastPage?.data?.length === limit) {
+      if (lastPage?.data?.length === query?.limit || PAGE_SIZE_LIMIT) {
         return lastPage.page + 1
       }
 

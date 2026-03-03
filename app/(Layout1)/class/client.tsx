@@ -16,6 +16,7 @@ import { LightBulbIcon } from '@/components/Icons/LightBulb'
 import { SparklesIcon } from '@/components/Icons/Sparkles'
 import { PenNibIcon } from '@/components/Icons/PenNib'
 import { BrainIcon } from '@/components/Icons/Brain'
+import useQuerySearch from '@/hooks/useQuerySearch'
 
 type CategoryKey = 'all' | 'logic' | 'skill' | 'writing' | 'thinking'
 
@@ -98,8 +99,9 @@ const ClassScreen = () => {
   const router = useRouter()
   const [selectedCategory, setSelectedCategory] = useState<CategoryKey>('all')
   const [openId, setOpenId] = useState<string | null>(null)
+  const { query } = useQuerySearch()
 
-  const { data: classes = [], isLoading, fetchNextPage, hasNextPage } = useGetClass({})
+  const { data: classes = [], isLoading, fetchNextPage, hasNextPage } = useGetClass(query)
 
   const items = useMemo(() => {
     const filtered =
@@ -217,8 +219,8 @@ const ClassScreen = () => {
   }
 
   return (
-    <main className='w-full bg-white text-gray-900'>
-      <section className='relative overflow-hidden'>
+    <section className='w-full bg-white text-gray-900'>
+      <div className='relative overflow-hidden'>
         <div className='absolute inset-0'>
           <div className='absolute inset-0 bg-gradient-to-b from-white/10 via-white/80 to-white' />
           <div className='absolute -left-40 top-24 h-80 w-80 rounded-full bg-default/10 blur-3xl' />
@@ -290,8 +292,8 @@ const ClassScreen = () => {
             </div>
           )}
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   )
 }
 
