@@ -69,7 +69,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: 'white',
+  themeColor: '#ffffff',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -129,7 +129,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={clsx(robotoSlab.variable)}>
         <ReactQueryProvider>
           <StyledComponentsRegistry>
-            <HeroUIProvider themeProps={{ attribute: 'class', defaultTheme: 'light' }}>
+            <HeroUIProvider themeProps={{ attribute: 'class', defaultTheme: 'light', forcedTheme: 'light' }}>
               <ClientRender>{children}</ClientRender>
             </HeroUIProvider>
           </StyledComponentsRegistry>

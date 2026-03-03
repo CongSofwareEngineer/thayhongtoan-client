@@ -21,9 +21,11 @@ type CategoryKey = 'all' | 'logic' | 'skill' | 'writing' | 'thinking'
 
 const getCategory = (name: string): Exclude<CategoryKey, 'all'> => {
   const n = name.toLowerCase()
+
   if (n.includes('logic')) return 'logic'
   if (n.includes('tư duy') || n.includes('tu duy') || n.includes('soroban')) return 'thinking'
   if (n.includes('chữ') || n.includes('chu') || n.includes('luyện chữ') || n.includes('luyen chu')) return 'writing'
+
   return 'skill'
 }
 
@@ -44,25 +46,31 @@ const getCategoryLabel = (key: Exclude<CategoryKey, 'all'>) => {
 const getAgeText = (name: string) => {
   const normalized = name.toLowerCase()
   const matchAge = normalized.match(/(\d{1,2})\s*[-–]\s*(\d{1,2})\s*tuổi/)
+
   if (matchAge?.[1] && matchAge?.[2]) {
     return `${matchAge[1]}-${matchAge[2]} tuổi`
   }
 
   const matchGrade = normalized.match(/lớp\s*(\d{1,2})\s*[-–]\s*(\d{1,2})/)
+
   if (matchGrade?.[1] && matchGrade?.[2]) {
     const g1 = Number(matchGrade[1])
     const g2 = Number(matchGrade[2])
+
     if (!Number.isNaN(g1) && !Number.isNaN(g2)) {
       const minAge = Math.max(4, g1 + 5)
       const maxAge = Math.max(minAge, g2 + 6)
+
       return `${minAge}-${maxAge} tuổi`
     }
   }
 
   const cat = getCategory(name)
+
   if (cat === 'writing') return '6-8 tuổi'
   if (cat === 'thinking') return '8-10 tuổi'
   if (cat === 'logic') return '9-12 tuổi'
+
   return '5-8 tuổi'
 }
 
@@ -99,8 +107,10 @@ const ClassScreen = () => {
         ? classes
         : classes.filter((c) => {
             const cat = getCategory(c.name)
+
             return cat === selectedCategory
           })
+
     return [...filtered].sort((a, b) => (a.price || 0) - (b.price || 0))
   }, [classes, selectedCategory])
 
@@ -113,11 +123,11 @@ const ClassScreen = () => {
     const showDetail = openId === id
 
     return (
-      <div key={id} className='overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]'>
+      <div key={id} className='overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm'>
         <div className={cn('relative h-28 bg-gradient-to-b', headerClass)}>
-          <div className='absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-neutral-950/60' />
+          <div className='absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-black/5' />
 
-          <div className='absolute left-4 top-4 rounded-md bg-neutral-950/60 px-2 py-1 text-xs font-semibold text-white/85 backdrop-blur'>
+          <div className='absolute left-4 top-4 rounded-md bg-white/80 px-2 py-1 text-xs font-semibold text-gray-800 backdrop-blur'>
             {getCategoryLabel(categoryKey)}
           </div>
           <div className='absolute right-4 top-4 rounded-md bg-primary px-2 py-1 text-xs font-semibold text-black'>
@@ -125,19 +135,19 @@ const ClassScreen = () => {
           </div>
 
           <div className='absolute inset-0 flex items-center justify-center'>
-            <Icon className='size-12 text-default/70' />
+            <Icon className='size-12 text-default/40' />
           </div>
         </div>
 
         <div className='flex flex-col gap-3 p-5'>
           <div>
-            <div className='text-lg font-bold'>{item.name}</div>
-            <div className='mt-1 text-sm text-white/60'>{item.note || 'Lộ trình rõ ràng, học theo tiến độ phù hợp.'}</div>
+            <div className='text-lg font-bold text-gray-900'>{item.name}</div>
+            <div className='mt-1 text-sm text-gray-500'>{item.note || 'Lộ trình rõ ràng, học theo tiến độ phù hợp.'}</div>
           </div>
 
-          <div className='space-y-2 text-sm text-white/75'>
+          <div className='space-y-2 text-sm text-gray-700'>
             <div className='flex items-center gap-2'>
-              <span className='inline-flex size-5 items-center justify-center rounded-md bg-white/5 text-white/70'>
+              <span className='inline-flex size-5 items-center justify-center rounded-md bg-black/5 text-gray-500'>
                 <svg className='size-4' fill='none' stroke='currentColor' strokeWidth={1.5} viewBox='0 0 24 24'>
                   <path
                     d='M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0'
@@ -146,11 +156,11 @@ const ClassScreen = () => {
                   />
                 </svg>
               </span>
-              <span className='text-white/60'>Độ tuổi:</span>
+              <span className='text-gray-500'>Độ tuổi:</span>
               <span>{getAgeText(item.name)}</span>
             </div>
             <div className='flex items-center gap-2'>
-              <span className='inline-flex size-5 items-center justify-center rounded-md bg-white/5 text-white/70'>
+              <span className='inline-flex size-5 items-center justify-center rounded-md bg-black/5 text-gray-500'>
                 <svg className='size-4' fill='none' stroke='currentColor' strokeWidth={1.5} viewBox='0 0 24 24'>
                   <path
                     d='M8.25 6.75h7.5m-7.5 3h7.5m-9 6h10.5M6.75 3.75h10.5A2.25 2.25 0 0 1 19.5 6v12A2.25 2.25 0 0 1 17.25 20.25H6.75A2.25 2.25 0 0 1 4.5 18V6A2.25 2.25 0 0 1 6.75 3.75Z'
@@ -159,29 +169,29 @@ const ClassScreen = () => {
                   />
                 </svg>
               </span>
-              <span className='text-white/60'>Lịch:</span>
+              <span className='text-gray-500'>Lịch:</span>
               <span className='truncate'>{timeText}</span>
             </div>
           </div>
 
-          <div className='text-primary font-extrabold'>{numberWithCommas(item.price, true)} đ/tháng</div>
+          <div className='text-default font-extrabold'>{numberWithCommas(item.price, true)} đ/tháng</div>
 
           {showDetail && (
-            <div className='rounded-xl border border-white/10 bg-neutral-950/40 p-4 text-sm text-white/70'>
+            <div className='rounded-xl border border-black/5 bg-gray-50/80 p-4 text-sm text-gray-600'>
               <div className='flex items-center justify-between gap-3'>
-                <div className='font-semibold text-white'>Thông tin lớp</div>
-                <div className='text-xs text-white/60'>{teacherName}</div>
+                <div className='font-semibold text-gray-900'>Thông tin lớp</div>
+                <div className='text-xs text-gray-500'>{teacherName}</div>
               </div>
               <div className='mt-2 space-y-1'>
                 {item.note && <div>{item.note}</div>}
-                <div className='text-white/60'>Thời gian: {timeText}</div>
+                <div className='text-gray-500'>Thời gian: {timeText}</div>
               </div>
             </div>
           )}
 
           <div className='mt-1 flex gap-3'>
             <MyButton
-              className='flex-1 border-white/10 bg-white/0 text-white hover:bg-white/5'
+              className='flex-1 border-black/10 bg-transparent text-gray-700 hover:bg-black/5'
               color='default'
               radius='sm'
               size='sm'
@@ -207,28 +217,30 @@ const ClassScreen = () => {
   }
 
   return (
-    <main className='w-full bg-neutral-950 text-white'>
+    <main className='w-full bg-white text-gray-900'>
       <section className='relative overflow-hidden'>
         <div className='absolute inset-0'>
-          <div className='absolute inset-0 bg-gradient-to-b from-neutral-950/30 via-neutral-950/95 to-neutral-950' />
-          <div className='absolute -left-40 top-24 h-80 w-80 rounded-full bg-default/25 blur-3xl' />
-          <div className='absolute -right-44 top-10 h-96 w-96 rounded-full bg-primary/10 blur-3xl' />
+          <div className='absolute inset-0 bg-gradient-to-b from-white/10 via-white/80 to-white' />
+          <div className='absolute -left-40 top-24 h-80 w-80 rounded-full bg-default/10 blur-3xl' />
+          <div className='absolute -right-44 top-10 h-96 w-96 rounded-full bg-primary/5 blur-3xl' />
         </div>
 
         <div className='relative mx-auto w-full max-w-7xl px-5 py-14 md:px-12 md:py-20'>
           <div className='text-center'>
-            <h1 className='text-4xl font-extrabold sm:text-5xl'>Các lớp học</h1>
-            <p className='mt-3 text-sm text-white/60 sm:text-base'>
-              Khám phá các lớp học phù hợp với con bạn, từ luyện chữ đến toán tư duy
-            </p>
+            <h1 className='text-4xl font-extrabold sm:text-5xl text-gray-900'>Các lớp học</h1>
+            <p className='mt-3 text-sm text-gray-600 sm:text-base'>Khám phá các lớp học phù hợp với con bạn, từ luyện chữ đến toán tư duy</p>
           </div>
 
           <div className='mt-10 flex items-center gap-3'>
-            <div className='text-white/70'>
+            <div className='text-gray-400'>
               <FilterIcon />
             </div>
 
             <MyDropdown
+              configDropdownMenu={{
+                className: 'bg-white text-gray-900 border border-black/5',
+                onAction: (key) => setSelectedCategory(key as CategoryKey),
+              }}
               options={[
                 { key: 'all', label: 'Tất cả' },
                 { key: 'logic', label: 'Toán logic' },
@@ -236,15 +248,11 @@ const ClassScreen = () => {
                 { key: 'writing', label: 'Luyện chữ' },
                 { key: 'skill', label: 'Kỹ năng khác' },
               ]}
-              configDropdownMenu={{
-                className: 'bg-neutral-950 text-white border border-white/10',
-                onAction: (key) => setSelectedCategory(key as CategoryKey),
-              }}
             >
               <MyButton
-                className='min-w-44 justify-between border-white/10 bg-white/5 text-white'
+                className='min-w-44 justify-between border-black/10 bg-white text-gray-700'
                 color='default'
-                endContent={<ArrowDownIcon className='size-4 text-white/70' />}
+                endContent={<ArrowDownIcon className='size-4 text-gray-500' />}
                 radius='sm'
                 size='sm'
                 variant='bordered'
@@ -260,19 +268,19 @@ const ClassScreen = () => {
             {isLoading &&
               items.length === 0 &&
               Array.from({ length: 6 }).map((_, idx) => (
-                <div key={idx} className='animate-pulse overflow-hidden rounded-2xl border border-white/10 bg-white/5'>
-                  <div className='h-28 bg-white/5' />
+                <div key={idx} className='animate-pulse overflow-hidden rounded-2xl border border-black/5 bg-gray-50'>
+                  <div className='h-28 bg-gray-100' />
                   <div className='p-5 space-y-3'>
-                    <div className='h-4 w-2/3 rounded bg-white/10' />
-                    <div className='h-3 w-full rounded bg-white/10' />
-                    <div className='h-3 w-1/2 rounded bg-white/10' />
-                    <div className='h-9 w-full rounded bg-white/10' />
+                    <div className='h-4 w-2/3 rounded bg-gray-100' />
+                    <div className='h-3 w-full rounded bg-gray-100' />
+                    <div className='h-3 w-1/2 rounded bg-gray-100' />
+                    <div className='h-9 w-full rounded bg-gray-100' />
                   </div>
                 </div>
               ))}
           </div>
 
-          {!isLoading && items.length === 0 && <div className='text-center text-white/60 py-10'>{translate('common.noData')}</div>}
+          {!isLoading && items.length === 0 && <div className='text-center text-gray-400 py-10'>{translate('common.noData')}</div>}
 
           {hasNextPage && (
             <div className='flex justify-center mt-8'>

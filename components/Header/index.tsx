@@ -5,14 +5,11 @@ import MyImage from '../MyImage'
 import Nav from './Components/Nav'
 
 import { images } from '@/config/images'
-import useMedia from '@/hooks/useMedia'
 
 const Header = () => {
-  const { isMobile } = useMedia()
-
   return (
     <>
-      <header className='light w-full flex justify-between items-center z-[11] fixed inset-0 h-14 bg-white'>
+      <header className='w-full flex justify-between items-center z-[11] fixed inset-x-0 top-0 h-14 bg-white/80 backdrop-blur border-b border-black/5'>
         <div className='w-full max-w-[1550px] px-5 m-auto flex items-center gap-3 h-full '>
           <div className='h-full relative '>
             <Link href={'/'}>

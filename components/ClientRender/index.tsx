@@ -31,7 +31,7 @@ const ClientRender = ({ children }: PropsWithChildren) => {
     <Suspense>
       <PreLoadData />
       <Header />
-      <main className='light w-full h-full min-h-[calc(100vh-56px)]  '>
+      <main className='w-full h-full min-h-[calc(100vh-56px)] bg-[#F5F7FA] text-gray-900'>
         {children}
         <LoadingFirstLoad />
         <Modal2 />

@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
-    /* scrollbar-gutter: unset !important; */
-    color: black;
-}
-
 .absolute-center {
   position: absolute;
   left: 50%;
@@ -15,7 +10,8 @@
 }
 
 body {
-  background: #c3c3c3 !important;
+  background: #ffffff;
+  color: #111827;
   font-size: 16px;
 
   @media screen and (max-width: 768px) {

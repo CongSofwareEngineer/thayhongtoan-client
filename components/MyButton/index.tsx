@@ -8,7 +8,7 @@ type props = {
 } & ButtonProps
 
 const MyButton = ({ ...props }: props) => {
-  return <Button color='default' {...props} className={cn(props?.className, props?.disabled ? 'opacity-70 cursor-not-allowed' : '')} />
+  return <Button color='default' {...props} className={cn('rounded-md', props?.className, props?.disabled ? 'opacity-70 cursor-not-allowed' : '')} />
 }
 
 export default MyButton

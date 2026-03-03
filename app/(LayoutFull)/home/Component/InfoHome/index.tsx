@@ -6,8 +6,8 @@ const InfoHome = () => {
   return (
     <div id='why' className='flex flex-col gap-10'>
       <div className='text-center'>
-        <h2 className='text-2xl font-extrabold sm:text-3xl'>Tại sao chọn thầy Hồng?</h2>
-        <p className='mt-2 text-sm text-white/60 sm:text-base'>Phương pháp giảng dạy khoa học, tận tâm với từng học sinh</p>
+        <h2 className='text-2xl font-extrabold sm:text-3xl text-gray-900'>Tại sao chọn thầy Minh?</h2>
+        <p className='mt-2 text-sm text-gray-600 sm:text-base'>Phương pháp giảng dạy khoa học, tận tâm với từng học sinh</p>
       </div>
 
       <div className='grid grid-cols-1 gap-5 md:grid-cols-3'>
@@ -32,14 +32,14 @@ const InfoHome = () => {
           return (
             <div
               key={it.title}
-              className='rounded-2xl border border-white/10 bg-white/5 p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] backdrop-blur'
+              className='rounded-2xl border border-black/5 bg-white p-6 shadow-sm backdrop-blur'
               data-aos='zoom-in'
             >
-              <div className='flex h-12 w-12 items-center justify-center rounded-2xl bg-default/20 text-default'>
-                <Icon className='size-6' />
+              <div className='flex h-12 w-12 items-center justify-center rounded-2xl bg-default/10 text-default'>
+                <Icon className='size-5' />
               </div>
-              <div className='mt-4 font-semibold'>{it.title}</div>
-              <div className='mt-2 text-sm text-white/60'>{it.desc}</div>
+              <div className='mt-4 font-semibold text-gray-900'>{it.title}</div>
+              <div className='mt-2 text-sm text-gray-600'>{it.desc}</div>
             </div>
           )
         })}

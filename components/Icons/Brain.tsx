@@ -7,13 +7,13 @@ type Props = HtmlHTMLAttributes<SVGSVGElement>
 export const BrainIcon = ({ ...props }: Props) => {
   return (
     <svg
-      className={cn('size-6', props.className)}
+      {...props}
+      className={cn('size-5', props.className)}
       fill='none'
       stroke='currentColor'
       strokeWidth={1.5}
       viewBox='0 0 24 24'
       xmlns='http://www.w3.org/2000/svg'
-      {...props}
     >
       <path
         d='M10.5 4.5a3 3 0 0 0-3 3v9.75a3.75 3.75 0 0 0 3.75 3.75h.75V4.5h-1.5Zm3 0v16.5h.75A3.75 3.75 0 0 0 18 17.25V7.5a3 3 0 0 0-3-3h-1.5Z'
@@ -28,4 +28,3 @@ export const BrainIcon = ({ ...props }: Props) => {
     </svg>
   )
 }
-

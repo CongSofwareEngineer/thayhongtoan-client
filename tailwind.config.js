@@ -40,58 +40,60 @@ const config = {
   darkMode: "class",
   plugins: [
     heroui({
-      theme: "light",
-      defaultTheme: "light",
-      defaultExtendTheme: "light",
-      layout: {
-        radius: {
-          small: "2px", // rounded-small
-          medium: "8px", // rounded-medium
-          large: "12px", // rounded-large
-        },
-      },
       themes: {
-        layout: {
-          layout: {
-            radius: "8px",
-          },
-        },
         light: {
+          layout: {
+            radius: {
+              small: '2px', // rounded-small
+              medium: '8px', // rounded-medium
+              large: '12px', // rounded-large
+            },
+          },
           colors: {
+            background: '#ffffff',
+            foreground: '#111827',
+            content1: '#ffffff',
+            content2: '#f3f4f6',
             default: {
-              DEFAULT: "#2c724c",
-               foreground:'#ffffff'
+              DEFAULT: '#2c724c',
+              foreground: '#ffffff',
             },
             primary: {
-              DEFAULT: "#fcd34d",
-              foreground:'#000000'
+              DEFAULT: '#fcd34d',
+              foreground: '#000000',
             },
             secondary: {
-              DEFAULT: "#ff4343",
-              foreground:'#000000'
+              DEFAULT: '#ff4343',
+              foreground: '#000000',
             },
             success: {
-              DEFAULT: "#2c724c",
+              DEFAULT: '#2c724c',
             },
           },
         },
-        // dark: {
-        //   colors: {
-        //     default: {
-        //       DEFAULT: "#2c724c",
-        //     },
-        //     primary: {
-        //       DEFAULT: "#fcd34d",
-        //       foreground:'#000000'
-        //     },
-        //     secondary: {
-        //       DEFAULT: "#2c724c",
-        //     },
-        //     success: {
-        //       DEFAULT: "#2c724c",
-        //     },
-        //   },
-        // },
+        dark: {
+          colors: {
+            background: '#0b0f0e',
+            foreground: '#f8fafc',
+            content1: '#0f1412',
+            content2: '#121816',
+            default: {
+              DEFAULT: '#2c724c',
+              foreground: '#ffffff',
+            },
+            primary: {
+              DEFAULT: '#fcd34d',
+              foreground: '#000000',
+            },
+            secondary: {
+              DEFAULT: '#ff4343',
+              foreground: '#000000',
+            },
+            success: {
+              DEFAULT: '#2c724c',
+            },
+          },
+        },
       },
     }),
     plugin(function ({ addUtilities }) {

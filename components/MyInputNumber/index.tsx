@@ -31,15 +31,14 @@ const MyInputNumber = ({ ...props }: Props) => {
       {...props}
       classNames={{
         ...props?.classNames,
-        base: cn('pt-[22px] group flex flex-col data-[has-helper=true]:mb-2', props?.classNames?.base),
+        base: cn('group flex flex-col data-[has-helper=true]:mb-2', props?.classNames?.base),
         label: cn('!text-black font-bold text-base top-[-12px] z-[2]', props?.classNames?.label),
         input: cn('!text-black', props?.classNames?.input),
         inputWrapper: cn(
-          // '!ring-0  border-[1px] border-gray-300 !bg-white !text-black !ring-transparent',
-          '!ring-0  border-[1px] border-gray-300 !bg-gray-50 !text-black !ring-transparent',
-          'group-data-[focus-visible=true]:!bg-gray-50',
-          'group-data-[focus=true]:!bg-gray-50',
-          'group-data-[hover=true]:!bg-gray-50',
+          '!ring-0 border-[1px] border-gray-200 !bg-white !text-black !ring-transparent',
+          'group-data-[focus-visible=true]:!bg-white',
+          'group-data-[focus=true]:!bg-white',
+          'group-data-[hover=true]:!bg-white',
           props?.classNames?.inputWrapper
         ),
       }}
