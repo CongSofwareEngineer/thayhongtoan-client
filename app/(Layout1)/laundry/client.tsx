@@ -45,11 +45,11 @@ const LaundryClient = () => {
           <MyInput required label='Địa chỉ giao hàng' name='deliveryAddress' placeholder='Nhập địa chỉ giao hàng' />
           <MyInput label='Khối lượng dự kiến (kg)' name='weight' placeholder='Nhập khối lượng dự kiến' type='number' />
           <MyInput label='Ghi chú' name='note' placeholder='Ghi chú thêm (nếu có)' />
-          <div className='flex justify-end gap-2 mt-4'>
-            <MyButton color='default' variant='flat' onPress={() => closeModal()}>
+          <div className='flex w-full justify-end gap-2 mt-4'>
+            <MyButton className='w-full' variant='flat' onPress={() => closeModal()}>
               Hủy
             </MyButton>
-            <MyButton color='primary' type='submit'>
+            <MyButton className='w-full' color='primary' type='submit'>
               Xác nhận đặt lịch
             </MyButton>
           </div>
