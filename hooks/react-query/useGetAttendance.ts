@@ -6,12 +6,12 @@ import { QUERY_KEY } from '@/constants/reactQuery'
 import AttendanceAPI from '@/services/API/Attendance'
 import { IAttendance, IAttendanceFilter } from '@/services/API/Attendance/type'
 
-const useGetAttendance = (query: IAttendanceFilter = {} ) => {
+const useGetAttendance = (query: IAttendanceFilter = {}) => {
   const { data, isLoading, isError, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
     initialPageParam: 1,
     queryKey: [QUERY_KEY.Attendance, query],
     queryFn: async ({ pageParam = 1 }) => {
-      const response = await AttendanceAPI.get('', { ...query, page: pageParam, , limit: query?.limit || PAGE_SIZE_LIMIT }) 
+      const response = await AttendanceAPI.get('', { ...query, page: pageParam, limit: query?.limit || PAGE_SIZE_LIMIT })
 
       return {
         data: response?.data || [],
