@@ -330,7 +330,7 @@ const RegisterPageClient = () => {
         <div className='flex flex-col gap-4 w-full'>
           <div className='flex justify-between items-center'>
             <h2 className='text-xl font-bold'>{translate('register.studentInfo')}</h2>
-            <MyButton color='primary' size='sm' startContent={<PlusIcon className='text-lg' />} onPress={addStudent}>
+            <MyButton color='primary' size='sm' startContent={<PlusIcon className='text-lg' />} onClick={addStudent}>
               {translate('register.addStudent')}
             </MyButton>
           </div>
@@ -388,7 +388,7 @@ const RegisterPageClient = () => {
         </div>
 
         <div className='flex justify-end'>
-          <MyButton className='w-full md:w-auto font-medium text-lg px-8' color='primary' onPress={onSubmit}>
+          <MyButton className='w-full md:w-auto font-medium text-lg px-8' color='primary' onClick={onSubmit}>
             {translate('register.registerNow')}
           </MyButton>
         </div>

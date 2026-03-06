@@ -198,7 +198,7 @@ const ClassScreen = () => {
               radius='sm'
               size='sm'
               variant='bordered'
-              onPress={() => setOpenId((prev) => (prev === id ? null : id))}
+              onClick={() => setOpenId((prev) => (prev === id ? null : id))}
             >
               Xem chi tiết
             </MyButton>
@@ -208,7 +208,7 @@ const ClassScreen = () => {
               radius='sm'
               size='sm'
               variant='solid'
-              onPress={() => router.push(`/register?idClass=${item._id}`)}
+              onClick={() => router.push(`/register?idClass=${item._id}`)}
             >
               Đăng ký
             </MyButton>

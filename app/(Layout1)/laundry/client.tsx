@@ -46,7 +46,7 @@ const LaundryClient = () => {
           <MyInput label='Khối lượng dự kiến (kg)' name='weight' placeholder='Nhập khối lượng dự kiến' type='number' />
           <MyInput label='Ghi chú' name='note' placeholder='Ghi chú thêm (nếu có)' />
           <div className='flex w-full justify-end gap-2 mt-4'>
-            <MyButton className='w-full' variant='flat' onPress={() => closeModal()}>
+            <MyButton className='w-full' variant='flat' onClick={() => closeModal()}>
               Hủy
             </MyButton>
             <MyButton className='w-full' color='primary' type='submit'>
@@ -74,7 +74,7 @@ const LaundryClient = () => {
           <p className='text-xl  mb-8 max-w-2xl mx-auto'>
             Chuyên nghiệp - Tận tâm - Nhanh chóng. Chúng tôi chăm sóc quần áo của bạn như chính người thân trong gia đình.
           </p>
-          <MyButton className='px-10 py-6 text-lg font-bold shadow-xl' color='primary' size='lg' onPress={openBookingModal}>
+          <MyButton className='px-10 py-6 text-lg font-bold shadow-xl' color='primary' size='lg' onClick={openBookingModal}>
             Đặt Lịch Ngay
           </MyButton>
         </div>
@@ -161,7 +161,7 @@ const LaundryClient = () => {
           <p className='text-blue-100 mb-10 max-w-xl mx-auto'>
             Đừng quá lo lắng, hãy để chúng tôi giúp bạn. Đội ngũ giao nhận sẽ có mặt trong vòng 30 - 60 phút.
           </p>
-          <MyButton className='bg-white text-blue-600 px-12 py-7 rounded-2xl font-extrabold text-xl hover:bg-blue-50' onPress={openBookingModal}>
+          <MyButton className='bg-white text-blue-600 px-12 py-7 rounded-2xl font-extrabold text-xl hover:bg-blue-50' onClick={openBookingModal}>
             ĐẶT LỊCH NGAY
           </MyButton>
         </section>

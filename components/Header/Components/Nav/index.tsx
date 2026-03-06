@@ -61,7 +61,7 @@ const Nav = () => {
     //   </div>
     // )
     return (
-      <MyButton className='font-semibold' color='primary' radius='sm' size='sm' variant='solid' onClick={() => router.push('/login')}>
+      <MyButton className='font-semibold' size='sm' variant='solid' onClick={() => router.push('/login')}>
         {translate('login.login')}
       </MyButton>
     )

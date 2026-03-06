@@ -52,10 +52,10 @@ const ParentAdminScreen = () => {
       case 'actions':
         return (
           <div className='flex items-center gap-2'>
-            <MyButton color='primary' size='sm' variant='flat' onPress={() => {}}>
+            <MyButton color='primary' onClick={() => {}}>
               Sửa
             </MyButton>
-            <MyButton color='danger' size='sm' variant='flat' onPress={() => {}}>
+            <MyButton color='danger' onClick={() => {}}>
               Xóa
             </MyButton>
           </div>
@@ -88,10 +88,10 @@ const ParentAdminScreen = () => {
           </div>
 
           <div className='flex gap-2 mt-2 pt-2 border-t border-default-100'>
-            <MyButton className='flex-1' color='primary' size='sm' variant='flat' onPress={() => {}}>
+            <MyButton className='flex-1' color='primary' onClick={() => {}}>
               Sửa
             </MyButton>
-            <MyButton className='flex-1' color='danger' size='sm' variant='flat' onPress={() => {}}>
+            <MyButton className='flex-1' color='danger' onClick={() => {}}>
               Xóa
             </MyButton>
           </div>
@@ -110,7 +110,7 @@ const ParentAdminScreen = () => {
         <div className='flex gap-4 items-center'>
           <MyInput placeholder={translate('admin.searchName') || 'Tìm kiếm tên'} value={searchName} onChange={(e) => handleSearch(e.target.value)} />
           <Tooltip content={translate('common.noData') || 'Xóa bộ lọc'}>
-            <MyButton isIconOnly color='warning' onPress={clearAll}>
+            <MyButton isIconOnly color='warning' onClick={clearAll}>
               <FilterIcon />
             </MyButton>
           </Tooltip>

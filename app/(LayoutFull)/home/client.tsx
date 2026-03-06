@@ -121,7 +121,7 @@ function HomeScreen() {
               radius='sm'
               size='lg'
               variant='solid'
-              onPress={() => router.push('/register?idClass=697ece7d7e900925609a2acb')}
+              onClick={() => router.push('/register?idClass=697ece7d7e900925609a2acb')}
             >
               {translate('register.registerNow')} →
             </MyButton>

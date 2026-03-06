@@ -65,10 +65,10 @@ const ModalRegister = ({ isOpen, onClose, onSubmit, isLoading }: ModalRegisterPr
               />
             </ModalBody>
             <ModalFooter>
-              <MyButton color='danger' variant='light' onPress={onClose}>
+              <MyButton color='danger' variant='light' onClick={onClose}>
                 {translate('common.close')}
               </MyButton>
-              <MyButton color='primary' isLoading={isLoading} onPress={handleSubmit}>
+              <MyButton color='primary' isLoading={isLoading} onClick={handleSubmit}>
                 {translate('common.register')}
               </MyButton>
             </ModalFooter>

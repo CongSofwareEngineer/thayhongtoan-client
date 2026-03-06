@@ -77,10 +77,10 @@ const StudentAdminScreen = () => {
       case 'actions':
         return (
           <div className='flex items-center gap-2'>
-            <MyButton color='primary' size='sm' variant='flat' onPress={() => {}}>
+            <MyButton color='primary' size='sm' variant='flat' onClick={() => {}}>
               Sửa
             </MyButton>
-            <MyButton color='danger' size='sm' variant='flat' onPress={() => {}}>
+            <MyButton color='danger' size='sm' variant='flat' onClick={() => {}}>
               Xóa
             </MyButton>
             {item.idParent && (
@@ -127,7 +127,7 @@ const StudentAdminScreen = () => {
               color='primary'
               size='sm'
               variant='flat'
-              onPress={() => {
+              onClick={() => {
                 // Define action or route if needed, e.g. edit student
               }}
             >
@@ -154,11 +154,11 @@ const StudentAdminScreen = () => {
             onChange={(e) => handleFilterClass(e.target.value)}
           /> */}
           <Tooltip content={translate('common.noData') || 'Xóa bộ lọc'}>
-            <MyButton isIconOnly color='warning' onPress={clearAll}>
+            <MyButton isIconOnly color='warning' onClick={clearAll}>
               <FilterIcon />
             </MyButton>
           </Tooltip>
-          <MyButton color='primary' onPress={() => {}}>
+          <MyButton color='primary' onClick={() => {}}>
             {translate('common.create') || 'Thêm mới'}
           </MyButton>
         </div>
