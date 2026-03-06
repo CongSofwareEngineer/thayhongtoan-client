@@ -50,7 +50,7 @@ const ClassSelect = ({ value, onChange, placeholder }: ClassSelectProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [search, setSearch] = useState('')
   // Fetch a large number of classes to support client-side filtering effectively
-  const { data: classes = [], isLoading } = useGetClass({}, 3000)
+  const { data: classes = [], isLoading } = useGetClass({})
   const { translate } = useLanguage()
 
   const filteredClasses = useMemo(() => {
