@@ -110,6 +110,7 @@ const Nav = () => {
         {renderNavLink('/class', translate('header.admin.class'), <ClassIcon />)}
         {renderNavLink('/contact', translate('header.contact'), <ContactIcon />)}
         {renderNavLink('/info', translate('header.info'), <InfoIcon />)}
+        {renderNavLink('/laundry', 'Giặt ủi', <InfoIcon />)}
         {user && (
           <>
             {isMobile ? (

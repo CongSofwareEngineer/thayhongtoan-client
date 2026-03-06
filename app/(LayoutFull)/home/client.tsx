@@ -46,13 +46,13 @@ function HomeScreen() {
 
               <div className='flex flex-col sm:flex-row gap-4'>
                 <Link href='/class'>
-                  <MyButton className='w-full sm:w-auto bg-[#F59E0B] hover:bg-[#D97706] text-white font-semibold px-8' size='lg'>
+                  <MyButton className='w-full sm:w-auto   font-semibold px-8' color='primary' size='lg'>
                     Xem lớp học
                     <ArrowDownIcon className='w-5 h-5 ml-2' />
                   </MyButton>
                 </Link>
                 <Link href='/about'>
-                  <MyButton className='w-full sm:w-auto border-[#E2E8F0] text-[#1A2332] hover:bg-[#F0FDF4]' size='lg'>
+                  <MyButton className='w-full sm:w-auto border-[#E2E8F0] text-[#1A2332] ' size='lg'>
                     Tìm hiểu thêm
                   </MyButton>
                 </Link>

@@ -8,6 +8,9 @@ const nextConfig: any = {
     ignoreDuringBuilds: true,
   },
   productionBrowserSourceMaps: true,
+  reactStrictMode: true,
+  cleanDistDir: true,
+  compress: true,
   images: {
     remotePatterns: [
       {
@@ -39,10 +42,8 @@ if (process.env.NEXT_PUBLIC_BUILD) {
   console.log('building for production')
 
   nextConfig.productionBrowserSourceMaps = false
-  nextConfig.reactStrictMode = true
   nextConfig.cleanDistDir = true
   nextConfig.compress = true
-
   nextConfig.experimental = {
     gzipSize: true,
     optimizeCss: true,
