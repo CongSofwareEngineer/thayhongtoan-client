@@ -14,11 +14,13 @@ import { ClockIcon } from '@/components/Icons/Clock'
 import { LocationIcon } from '@/components/Icons/Location'
 import { CheckBadgeIcon } from '@/components/Icons/CheckBadge'
 import { SparklesIcon } from '@/components/Icons/Sparkles'
+import { showNotificationSuccess } from '@/utils/notification'
 
 const ClassDetailClient = ({ id }: { id: string }) => {
   const router = useRouter()
   const { data: classes = [], isLoading } = useGetClass({ _id: id } as any)
   const classItem = classes.find((c) => c._id === id)
+  const teacherName = (classItem?.idTeacher as ITeacher)?.name || 'Thầy Hồng'
 
   const reviews = [
     { name: 'Nguyễn Văn A', content: 'Thầy dạy rất tận tâm, con mình đã tiến bộ rất nhiều sau 1 tháng.', rating: 5 },
@@ -27,14 +29,12 @@ const ClassDetailClient = ({ id }: { id: string }) => {
   ]
 
   const handleRegister = (_data: any) => {
-    alert('Đăng ký thành công! Chúng tôi sẽ liên hệ với bạn soon.')
+    showNotificationSuccess('Đăng ký thành công! Chúng tôi sẽ liên hệ với bạn soon.')
     router.push('/register?idClass=' + id)
   }
 
   if (isLoading) return <div className='p-20 text-center'>Đang tải...</div>
   if (!classItem) return <div className='p-20 text-center'>Không tìm thấy lớp học.</div>
-
-  const teacherName = (classItem.idTeacher as ITeacher)?.name || 'Thầy Hồng'
 
   return (
     <div className='w-full bg-white min-h-screen'>
