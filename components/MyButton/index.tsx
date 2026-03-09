@@ -13,6 +13,7 @@ type Props = {
   type?: 'button' | 'submit' | 'reset'
   size?: 'lg' | 'sm' | 'default'
   variant?: string
+  radius?: string
 } & React.ButtonHTMLAttributes<HTMLButtonElement>
 
 const getClassColor = (type: string = 'default') => {
@@ -44,19 +45,7 @@ const DefaultSpinner = () => (
   </svg>
 )
 
-const MyButton = ({
-  color = 'default',
-  size = 'default',
-  variant = '',
-  className,
-  disabled,
-  isLoading = false,
-  spinner,
-  children,
-  onClick,
-  type = 'button',
-  ...props
-}: Props) => {
+const MyButton = ({ color = 'default', className, disabled, isLoading = false, spinner, children, onClick, type = 'button', ...props }: Props) => {
   // Khi loading thì disable button và ignore onClick
   const isDisabled = disabled || isLoading
 
