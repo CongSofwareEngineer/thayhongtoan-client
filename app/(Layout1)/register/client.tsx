@@ -17,7 +17,6 @@ import RegisterAPI from '@/services/API/Register'
 import { cn } from '@/utils/tailwind'
 import { showNotificationError, showNotificationSuccess } from '@/utils/notification'
 import useQuerySearch from '@/hooks/useQuerySearch'
-import { PlusIcon } from '@/components/Icons/Plus'
 import { TrashIcon } from '@/components/Icons/Trash'
 import { SearchIcon } from '@/components/Icons/Search'
 import { ArrowDownIcon } from '@/components/Icons/ArrowDown'
@@ -330,7 +329,8 @@ const RegisterPageClient = () => {
         <div className='flex flex-col gap-4 w-full'>
           <div className='flex justify-between items-center'>
             <h2 className='text-xl font-bold'>{translate('register.studentInfo')}</h2>
-            <MyButton color='primary' size='sm' startContent={<PlusIcon className='text-lg' />} onClick={addStudent}>
+            {/* <MyButton color='primary' size='sm' startContent={<PlusIcon className='text-lg' />} onClick={addStudent}> */}
+            <MyButton color='primary' size='sm' onClick={addStudent}>
               {translate('register.addStudent')}
             </MyButton>
           </div>

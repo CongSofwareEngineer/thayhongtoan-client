@@ -11,7 +11,6 @@ import { ITeacher } from '@/services/API/Teacher/type'
 import { numberWithCommas } from '@/utils/functions'
 import { cn } from '@/utils/tailwind'
 import { FilterIcon } from '@/components/Icons/Filter'
-import { ArrowDownIcon } from '@/components/Icons/ArrowDown'
 import { LightBulbIcon } from '@/components/Icons/LightBulb'
 import { SparklesIcon } from '@/components/Icons/Sparkles'
 import { PenNibIcon } from '@/components/Icons/PenNib'
@@ -254,7 +253,7 @@ const ClassScreen = () => {
               <MyButton
                 className='min-w-44 justify-between border-black/10 bg-white text-gray-700'
                 color='default'
-                endContent={<ArrowDownIcon className='size-4 text-gray-500' />}
+                // endContent={<ArrowDownIcon className='size-4 text-gray-500' />}
                 radius='sm'
                 size='sm'
                 variant='bordered'
@@ -286,7 +285,7 @@ const ClassScreen = () => {
 
           {hasNextPage && (
             <div className='flex justify-center mt-8'>
-              <MyButton className='min-w-40' color='primary' isLoading={isLoading} radius='sm' variant='solid' onClick={fetchNextPage}>
+              <MyButton className='min-w-40' color='primary' isLoading={isLoading} radius='sm' variant='solid' onClick={() => fetchNextPage()}>
                 {translate('common.loadMore')}
               </MyButton>
             </div>
