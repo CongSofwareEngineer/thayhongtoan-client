@@ -59,5 +59,14 @@
   },
   "errors": {
     "serverError": "Server error, please try again later"
+  },
+  "payment": {
+    "title": "QR Payment",
+    "amount": "Amount to pay",
+    "generateQR": "Generate QR Code",
+    "checkPayment": "Check Payment",
+    "success": "Payment successful!",
+    "errorPrice": "Invalid amount",
+    "instruction": "Scan the code below to pay quickly via your banking app"
   }
 }

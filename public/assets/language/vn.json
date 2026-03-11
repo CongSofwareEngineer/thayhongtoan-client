@@ -143,5 +143,14 @@
     "searchClass": "Tìm kiếm lớp...",
     "studentName": "Họ tên học sinh",
     "parentName": "Họ tên phụ huynh"
+  },
+  "payment": {
+    "title": "Thanh toán bằng QR",
+    "amount": "Số tiền cần thanh toán",
+    "generateQR": "Tạo mã QR",
+    "checkPayment": "Kiểm tra thanh toán",
+    "success": "Thanh toán thành công!",
+    "errorPrice": "Số tiền không hợp lệ",
+    "instruction": "Quét mã bên dưới để thanh toán nhanh qua ứng dụng ngân hàng"
   }
 }
