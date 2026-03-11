@@ -154,7 +154,7 @@ const StudentAdminScreen = () => {
             onChange={(e) => handleFilterClass(e.target.value)}
           /> */}
           <Tooltip content={translate('common.noData') || 'Xóa bộ lọc'}>
-            <MyButton isIconOnly color='warning' onClick={clearAll}>
+            <MyButton  color='warning' onClick={clearAll}>
               <FilterIcon />
             </MyButton>
           </Tooltip>

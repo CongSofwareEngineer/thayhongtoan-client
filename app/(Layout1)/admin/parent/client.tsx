@@ -110,7 +110,7 @@ const ParentAdminScreen = () => {
         <div className='flex gap-4 items-center'>
           <MyInput placeholder={translate('admin.searchName') || 'Tìm kiếm tên'} value={searchName} onChange={(e) => handleSearch(e.target.value)} />
           <Tooltip content={translate('common.noData') || 'Xóa bộ lọc'}>
-            <MyButton isIconOnly color='warning' onClick={clearAll}>
+            <MyButton color='warning' onClick={clearAll}>
               <FilterIcon />
             </MyButton>
           </Tooltip>
