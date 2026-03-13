@@ -18,8 +18,8 @@ import { IInfoBanking } from '@/services/API/Sepay/type'
 
 const PaymentClient = () => {
   const { translate } = useLanguage()
-  const [formData, setFormData] = useState<any>({
-    amount: 0,
+  const [formData, setFormData] = useState<{ amount: number }>({
+    amount: 10000,
   })
   const [formDataError, setFormDataError] = useState<any>({})
   const [isChecking, setIsChecking] = useState(false)
@@ -93,8 +93,10 @@ const PaymentClient = () => {
     }
   }
 
+  console.log({ formData })
+
   return (
-    <div className='max-w-4xl mx-auto px-4 py-20'>
+    <div className='max-w-4xl mx-auto md:px-4 py-20'>
       <div className='bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-blue-50'>
         <div className='flex items-center gap-3 mb-8'>
           <div className='w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary'>
@@ -104,9 +106,13 @@ const PaymentClient = () => {
         </div>
 
         <div className='grid md:grid-cols-2 gap-12'>
-          <div>
+          <div className='w-full'>
             <MyForm className='flex flex-col gap-6' onSubmit={generateQR}>
               <MyInputNumber
+                classNames={{
+                  input: 'border-[0px]',
+                }}
+                // defaultValue={formData.amount}
                 endContent={<span className='text-gray-400 font-bold'>đ</span>}
                 errorMessage={formDataError.amount}
                 isInvalid={!!formDataError.amount}

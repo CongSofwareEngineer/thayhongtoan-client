@@ -113,6 +113,7 @@ const Nav = () => {
         {renderNavLink('/laundry', 'Giặt ủi', <InfoIcon />)}
         {user && (
           <>
+            {renderNavLink('/admin', translate('header.admin.title'), <CopyIcon />)}
             {isMobile ? (
               <div className='flex flex-col gap-2 mt-2 pt-2 border-t border-black/5'>
                 <p className='text-tiny font-bold text-gray-400 uppercase'>{translate('header.admin.title')}</p>
@@ -132,7 +133,7 @@ const Nav = () => {
                 <DropdownTrigger>
                   <div className='flex items-center gap-2 cursor-pointer rounded-full px-3 py-2 text-sm font-medium text-gray-600 hover:bg-black/5 hover:text-gray-900 transition-colors'>
                     <CopyIcon className='text-gray-500' />
-                    <span className='text-gray-800'>Quản trị</span>
+                    <span className='text-gray-800'>{translate('header.admin.title')}</span>
                   </div>
                 </DropdownTrigger>
                 <DropdownMenu aria-label='Admin Actions' className='bg-white text-gray-900 border border-black/5'>

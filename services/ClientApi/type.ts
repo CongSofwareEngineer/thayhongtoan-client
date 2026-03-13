@@ -11,4 +11,5 @@ export interface InfoTeacher {
   face?: string
   zalo?: string
   tiktok?: string
+  isAdmin: boolean
 }
