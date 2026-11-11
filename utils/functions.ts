@@ -290,3 +290,51 @@ export const convertVND = (value: string | number) => {
     value
   }
 }
+
+// Display money as "450.000đ"
+export const formatMoney = (value?: number | string) => {
+  const num = Number(value || 0)
+
+  return `${num.toLocaleString('vi-VN')}đ`
+}
+
+// Display a date as DD/MM/YYYY
+export const formatDate = (value?: string | Date | null) => {
+  if (!value) {
+    return ''
+  }
+  const date = new Date(value)
+
+  if (Number.isNaN(date.getTime())) {
+    return ''
+  }
+
+  return date.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })
+}
+
+// Display a date+time as DD/MM/YYYY HH:mm
+export const formatDateTime = (value?: string | Date | null) => {
+  if (!value) {
+    return ''
+  }
+  const date = new Date(value)
+
+  if (Number.isNaN(date.getTime())) {
+    return ''
+  }
+
+  return `${formatDate(date)} ${date.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}`
+}
+
+// URL-safe slug from Vietnamese text
+export const slugify = (text: string) =>
+  text
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')

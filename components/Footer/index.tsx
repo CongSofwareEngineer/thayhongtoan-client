@@ -4,57 +4,111 @@ import Link from 'next/link'
 import MyImage from '../MyImage'
 import { ContactIcon } from '../Icons/Contact'
 import { CopyIcon } from '../Icons/Copy'
+import { LocationIcon } from '../Icons/Location'
+import { PhoneIcon } from '../Icons/Phone'
+import { ClockIcon } from '../Icons/Clock'
+import { FacebookIcon } from '../Icons/Facebook'
 
 import { images } from '@/config/images'
-import { LINK_CONTACT } from '@/constants/app'
+import { INFO_CONTACT, LINK_CONTACT } from '@/constants/app'
+import { ROUTES } from '@/constants/routes'
+import useLanguage from '@/hooks/useLanguage'
 import { copyToClipboard } from '@/utils/notification'
 
-const Item = ({ icon, value, link }: any) => {
-  return (
-    <div className='flex gap-2 items-center'>
-      {typeof icon === 'string' ? (
-        <MyImage fill alt={`icon-footer-${value}`} className='!relative md:!w-[25px] !w-[20px] md:!h-[25px] !h-[20px]' src={icon} />
-      ) : (
-        <div className='md:text-[25px] text-[20px]'>{icon}</div>
-      )}
-
-      <Link className='hover:underline cursor-pointer text-gray-600' href={link} target='_blank'>
+const ContactRow = ({ icon, value, link, copyable = true }: { icon: React.ReactNode; value: string; link?: string; copyable?: boolean }) => (
+  <div className='flex items-center gap-2 text-sm'>
+    <span className='shrink-0 text-primary'>{icon}</span>
+    {link ? (
+      <Link className='text-base-content/70 hover:text-primary hover:underline' href={link} target='_blank'>
         {value}
       </Link>
-      <CopyIcon className='text-gray-400 hover:text-gray-600 cursor-pointer' onClick={() => copyToClipboard(value)} />
-    </div>
-  )
-}
-const Footer = () => {
-  return (
-    <footer className='no footer-web w-full bg-gray-50 border-t border-black/5 flex justify-center md:mt-5 mt-3 text-gray-900'>
-      <div className='flex flex-col w-full items-center justify-center'>
-        <div className=' w-full max-w-[1550px] md:px-[50px] px-[20px] py-5 '>
-          <p className='text-title font-bold mb-2'>Thông tin liên hệ</p>
-          <div className='flex md:flex-row flex-col w-full justify-between md:gap-0 gap-4'>
-            <div className='flex flex-col md:gap-3 gap-2 md:w-[48%] w-full'>
-              {/* 
-              <Item icon={images.icons.iconNumberPhone} link={LINK_CONTACT.SDT} value={'Hồ Diên Công'} /> */}
+    ) : (
+      <span className='text-base-content/70'>{value}</span>
+    )}
+    {copyable && (
+      <button aria-label='copy' className='text-base-content/30 hover:text-primary' type='button' onClick={() => copyToClipboard(value)}>
+        <CopyIcon className='size-4' />
+      </button>
+    )}
+  </div>
+)
 
-              <Item icon={<ContactIcon className='text-default' />} link={LINK_CONTACT.Mail} value={'hodienhong8392@gmail.com'} />
-              <Item icon={images.icons.iconZalo} link={LINK_CONTACT.Zalo} type={'zalo'} value={'+84344798392'} />
-              <Item icon={images.icons.iconFacebook} link={LINK_CONTACT.FaceBook} value={'Facebook'} />
-              {/* <Item icon={images.icons.icon} link={LINK_CONTACT.Github} value={'CongSofwareEngineer'} /> */}
-              {/* <Item icon={images.footer.iconAddress} link={LINK_CONTACT.GGMap} value={'83/41, Phạm Văn Bạch, P.15, Tân Bình, TP.HCM'} /> */}
+const Footer = () => {
+  const { translate } = useLanguage()
+
+  const siteLinks = [
+    { href: ROUTES.about, label: translate('header.about') },
+    { href: ROUTES.class, label: translate('header.class') },
+    { href: ROUTES.schedule, label: translate('header.schedule') },
+    { href: ROUTES.tuition, label: translate('header.tuition') },
+  ]
+
+  const helpLinks = [
+    { href: ROUTES.faq, label: translate('header.faq') },
+    { href: ROUTES.blog, label: translate('header.blog') },
+    { href: ROUTES.gallery, label: translate('header.gallery') },
+    { href: ROUTES.tracking, label: translate('header.tracking') },
+  ]
+
+  return (
+    <footer className='mt-auto w-full border-t border-base-300 bg-base-200'>
+      <div className='m-auto w-full max-w-[1550px] px-5 py-12 md:px-12'>
+        <div className='grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4'>
+          <div className='flex flex-col gap-4'>
+            <div className='relative h-10'>
+              <MyImage noAnimation alt={INFO_CONTACT.name} className='!relative !h-10 !w-auto' src={images.logo} />
             </div>
-            <div className='w-full md:w-[48%] min-h-[200px]'>
-              <div style={{ height: '100%', width: '100%', minHeight: 200 }}>
-                <iframe className='w-full h-full rounded-2xl border border-black/5' loading='lazy' src={LINK_CONTACT.GGMap} title='TC Store' />
-              </div>
+            <p className='text-sm leading-relaxed text-base-content/60'>{translate('home.heroDesc')}</p>
+            <div className='flex gap-2'>
+              <Link aria-label='Facebook' className='btn btn-circle btn-ghost btn-sm' href={LINK_CONTACT.FaceBook} target='_blank'>
+                <FacebookIcon className='size-5 text-primary' />
+              </Link>
+              <Link aria-label='Zalo' className='btn btn-circle btn-ghost btn-sm' href={LINK_CONTACT.Zalo} target='_blank'>
+                <MyImage noAnimation alt='zalo' className='!relative !size-5' src={images.icons.iconZalo} />
+              </Link>
             </div>
           </div>
+
+          <div className='flex flex-col gap-3'>
+            <h3 className='text-sm font-bold uppercase tracking-wide text-base-content'>{translate('footer.exploreTitle')}</h3>
+            {siteLinks.map((item) => (
+              <Link key={item.href} className='text-sm text-base-content/70 hover:text-primary hover:underline' href={item.href}>
+                {item.label}
+              </Link>
+            ))}
+          </div>
+
+          <div className='flex flex-col gap-3'>
+            <h3 className='text-sm font-bold uppercase tracking-wide text-base-content'>{translate('footer.supportTitle')}</h3>
+            {helpLinks.map((item) => (
+              <Link key={item.href} className='text-sm text-base-content/70 hover:text-primary hover:underline' href={item.href}>
+                {item.label}
+              </Link>
+            ))}
+          </div>
+
+          <div className='flex flex-col gap-3'>
+            <h3 className='text-sm font-bold uppercase tracking-wide text-base-content'>{translate('contact.infoTitle')}</h3>
+            <ContactRow icon={<PhoneIcon className='size-4' />} link={LINK_CONTACT.SDT} value={INFO_CONTACT.phoneDisplay} />
+            <ContactRow icon={<ContactIcon className='size-4' />} link={LINK_CONTACT.Mail} value={INFO_CONTACT.email} />
+            <ContactRow copyable={false} icon={<LocationIcon className='size-4' />} value={INFO_CONTACT.address} />
+            <ContactRow copyable={false} icon={<ClockIcon className='size-4' />} value={translate('contact.workingTimeValue')} />
+          </div>
         </div>
-        <div className='flex gap-2 justify-center mb-3 text-sm text-gray-500'>
-          <span>Copyright © 2024</span>
-          <Link href={LINK_CONTACT.HoDieCong} target='_blank'>
-            <span className='hover:underline hover:scale-105 text-default'>CÔNG</span>
+
+        <div className='mt-10 min-h-[220px] overflow-hidden rounded-box border border-base-300'>
+          <iframe className='h-[220px] w-full' loading='lazy' src={LINK_CONTACT.GGMap} title={translate('contact.mapTitle')} />
+        </div>
+      </div>
+
+      <div className='border-t border-base-300'>
+        <div className='m-auto flex w-full max-w-[1550px] flex-col items-center justify-between gap-2 px-5 py-4 text-xs text-base-content/50 md:flex-row md:px-12'>
+          <span>
+            © {new Date().getFullYear()} {INFO_CONTACT.name}. All rights reserved.
+          </span>
+          <Link className='hover:text-primary hover:underline' href={LINK_CONTACT.HoDieCong} target='_blank'>
+            Developed by CÔNG
           </Link>
-          <span>All Rights Reserved</span>
         </div>
       </div>
     </footer>

@@ -1,65 +1,98 @@
-import { MouseEventHandler, ReactNode } from 'react'
+import { ButtonHTMLAttributes, ReactNode } from 'react'
 
 import { cn } from '@/utils/tailwind'
 
-type Props = {
-  onClick?: MouseEventHandler<HTMLButtonElement>
-  color?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'danger'
-  disabled?: boolean
-  isLoading?: boolean
-  spinner?: ReactNode // Custom spinner nếu muốn
-  className?: string
-  children?: ReactNode
-  type?: 'button' | 'submit' | 'reset'
-  size?: 'lg' | 'sm' | 'default'
-  variant?: string
-  radius?: string
-} & React.ButtonHTMLAttributes<HTMLButtonElement>
+export type ButtonColor = 'default' | 'primary' | 'secondary' | 'accent' | 'success' | 'warning' | 'error' | 'danger' | 'info' | 'neutral'
+export type ButtonVariant = 'solid' | 'flat' | 'outline' | 'ghost' | 'light' | 'link' | 'soft' | 'dash'
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'default'
 
-const getClassColor = (type: string = 'default') => {
-  switch (type) {
-    case 'primary':
-      return 'bg-[#F59E0B] hover:bg-[#D97706] text-white'
-    case 'secondary':
-      return 'bg-gray-200 hover:bg-gray-300 text-gray-800'
-    case 'success':
-      return 'bg-[#22C55E] hover:bg-[#16a34a] text-white'
-    case 'warning':
-      return 'bg-[#F59E0B] hover:bg-[#D97706] text-white'
-    case 'error':
-      return 'bg-[#EF4444] hover:bg-[#DC2626] text-white'
-    default:
-      return 'bg-[#22C55E] hover:bg-[#7ec192] text-white'
-  }
+type Props = {
+  color?: ButtonColor
+  variant?: ButtonVariant
+  size?: ButtonSize
+  isLoading?: boolean
+  spinner?: ReactNode
+  startContent?: ReactNode
+  endContent?: ReactNode
+  fullWidth?: boolean
+  radius?: 'none' | 'sm' | 'md' | 'lg' | 'full'
+  children?: ReactNode
+} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'>
+
+// daisyUI color class per semantic color (danger is an alias of error)
+const COLOR_CLASS: Record<ButtonColor, string> = {
+  default: 'btn-primary',
+  primary: 'btn-primary',
+  secondary: 'btn-secondary',
+  accent: 'btn-accent',
+  info: 'btn-info',
+  success: 'btn-success',
+  warning: 'btn-warning',
+  error: 'btn-error',
+  danger: 'btn-error',
+  neutral: 'btn-neutral',
 }
 
-// Spinner component đơn giản bằng Tailwind (có thể thay bằng icon library)
-const DefaultSpinner = () => (
-  <svg aria-hidden='true' className='animate-spin -ml-1 mr-2 h-4 w-4 text-current' fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
-    <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
-    <path
-      className='opacity-75'
-      d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
-      fill='currentColor'
-    />
-  </svg>
-)
+const SIZE_CLASS: Record<ButtonSize, string> = {
+  xs: 'btn-xs',
+  sm: 'btn-sm',
+  md: '',
+  default: '',
+  lg: 'btn-lg',
+  xl: 'btn-xl',
+}
 
-const MyButton = ({ color = 'default', className, disabled, isLoading = false, spinner, children, onClick, type = 'button', ...props }: Props) => {
-  // Khi loading thì disable button và ignore onClick
+const RADIUS_CLASS: Record<NonNullable<Props['radius']>, string> = {
+  none: 'rounded-none',
+  sm: 'rounded-md',
+  md: 'rounded-field',
+  lg: 'rounded-box',
+  full: 'rounded-full',
+}
+
+// Variants map onto daisyUI style modifiers; flat/light become soft/ghost
+const VARIANT_CLASS: Partial<Record<ButtonVariant, string>> = {
+  solid: '',
+  flat: 'btn-soft',
+  soft: 'btn-soft',
+  outline: 'btn-outline',
+  dash: 'btn-dash',
+  ghost: 'btn-ghost',
+  light: 'btn-ghost',
+  link: 'btn-link',
+}
+
+const MyButton = ({
+  color = 'default',
+  variant = 'solid',
+  size = 'md',
+  radius,
+  className,
+  disabled,
+  isLoading = false,
+  spinner,
+  startContent,
+  endContent,
+  fullWidth,
+  children,
+  type = 'button',
+  onClick,
+  ...props
+}: Props) => {
   const isDisabled = disabled || isLoading
+  const isNeutralLook = variant === 'ghost' || variant === 'light' || variant === 'link'
 
   return (
     <button
       className={cn(
-        // Base styles
-        'inline-flex  items-center justify-center rounded-md px-4 py-2',
-        // 'focus:outline-none focus:ring-2 focus:ring-offset-2',
-        // Color variants
-        getClassColor(color),
-        // Disabled/Loading state
-        isDisabled ? 'opacity-70 cursor-not-allowed' : 'cursor-pointer ',
-        // Custom className from props
+        'btn',
+        SIZE_CLASS[size],
+        VARIANT_CLASS[variant],
+        // ghost/link already carry their own look, a color class would fight it
+        !isNeutralLook && COLOR_CLASS[color],
+        isNeutralLook && color !== 'default' && COLOR_CLASS[color],
+        radius && RADIUS_CLASS[radius],
+        fullWidth && 'w-full',
         className
       )}
       disabled={isDisabled}
@@ -67,10 +100,9 @@ const MyButton = ({ color = 'default', className, disabled, isLoading = false, s
       onClick={isLoading ? undefined : onClick}
       {...props}
     >
-      {/* Spinner khi loading */}
-      {isLoading && (spinner || <DefaultSpinner />)}
-
+      {isLoading ? (spinner ?? <span className='loading loading-spinner loading-sm' />) : startContent}
       {children}
+      {!isLoading && endContent}
     </button>
   )
 }

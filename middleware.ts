@@ -1,7 +1,7 @@
 // middleware.ts
 import { NextResponse } from 'next/server'
 
-export async function middleware(req: Request) {
+export async function middleware(_req: Request) {
   // const cookie = req.headers.get('cookie') || ''
 
   // console.log({ cookie })

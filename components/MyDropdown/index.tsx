@@ -1,30 +1,66 @@
 'use client'
-import React, { ReactNode } from 'react'
-import { Dropdown, DropdownProps, DropdownTrigger, DropdownMenu, DropdownMenuProps, DropdownItem, DropdownItemProps } from '@heroui/dropdown'
+import React, { ReactNode, useEffect, useRef, useState } from 'react'
 
-export type OptionDropdown = Array<{ label: ReactNode; key: string }>
+import { cn } from '@/utils/tailwind'
+
+export type OptionDropdown = Array<{ label: ReactNode; key: string; icon?: ReactNode; danger?: boolean }>
 
 type Props = {
   options: OptionDropdown
-  configItem?: DropdownItemProps
-  configDropdownMenu?: Omit<DropdownMenuProps, 'children'>
-} & Omit<DropdownProps, 'children'> & {
-    children?: ReactNode
-  }
-const MyDropdown = ({ options, configDropdownMenu, configItem, children, ...props }: Props) => {
+  children?: ReactNode
+  placement?: 'start' | 'center' | 'end'
+  direction?: 'top' | 'bottom' | 'left' | 'right'
+  className?: string
+  classNameContent?: string
+  onAction?: (key: string) => void
+}
+
+const MyDropdown = ({ options, children, placement = 'end', direction = 'bottom', className, classNameContent, onAction }: Props) => {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  // Close when clicking anywhere outside the dropdown
+  useEffect(() => {
+    if (!open) {
+      return
+    }
+
+    const onClickOutside = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', onClickOutside)
+
+    return () => document.removeEventListener('mousedown', onClickOutside)
+  }, [open])
+
   return (
-    <Dropdown {...props}>
-      <DropdownTrigger>{children}</DropdownTrigger>
-      <DropdownMenu {...configDropdownMenu} aria-label={configDropdownMenu?.['aria-label'] || 'Thay Hồng toán | Dropdown'}>
-        {options.map((e) => {
-          return (
-            <DropdownItem data-hover {...configItem} key={e.key}>
-              {e.label}
-            </DropdownItem>
-          )
-        })}
-      </DropdownMenu>
-    </Dropdown>
+    <div ref={ref} className={cn('dropdown', `dropdown-${placement}`, `dropdown-${direction}`, open && 'dropdown-open', className)}>
+      <div role='button' tabIndex={0} onClick={() => setOpen((v) => !v)}>
+        {children}
+      </div>
+      {open && (
+        <ul className={cn('dropdown-content menu z-50 mt-2 w-56 rounded-box border border-base-300 bg-base-100 p-2 shadow-lg', classNameContent)}>
+          {options.map((item) => (
+            <li key={item.key}>
+              <button
+                className={cn('flex items-center gap-2 text-left', item.danger && 'text-error')}
+                type='button'
+                onClick={() => {
+                  setOpen(false)
+                  onAction?.(item.key)
+                }}
+              >
+                {item.icon}
+                {item.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   )
 }
 

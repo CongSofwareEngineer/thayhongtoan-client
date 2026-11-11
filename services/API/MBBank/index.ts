@@ -1,5 +1,3 @@
-import { randomBytes } from 'crypto'
-
 import { FINANCE } from '@/constants/finance'
 
 class MBBankService {
@@ -19,8 +17,22 @@ class MBBankService {
     return `MaID ${salt} Ngay ${new Date().toLocaleDateString('vi-VN')}`
   }
 
+  // Web Crypto keeps this client-only; importing node:crypto would pull a polyfill
   generateSalt(): string {
-    return Buffer.from(randomBytes(7).buffer).toString('hex').padStart(10, '0')
+    const bytes = new Uint8Array(7)
+
+    if (typeof globalThis.crypto?.getRandomValues === 'function') {
+      globalThis.crypto.getRandomValues(bytes)
+    } else {
+      bytes.forEach((_, index) => {
+        bytes[index] = Math.floor(Math.random() * 256)
+      })
+    }
+
+    return Array.from(bytes)
+      .map((byte) => byte.toString(16).padStart(2, '0'))
+      .join('')
+      .padStart(10, '0')
   }
 
   static openDeepLink(amount: number, mess: string) {

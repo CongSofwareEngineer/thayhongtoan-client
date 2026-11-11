@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect } from 'react'
 
 import { XMarkIcon } from '../Icons/XMark'
@@ -93,7 +94,7 @@ const Modal2 = () => {
   return modal2?.open ? (
     <div
       className={cn(
-        'fixed  flex justify-center items-center flex-col inset-0 w-[100dvw] h-[100dvh] bg-black/20 ',
+        'fixed  flex justify-center items-center flex-col inset-0 w-[100dvw] h-[100dvh] bg-neutral/40 ',
         modal2?.open ? 'z-[9999999] opacity-100' : 'z-[-1] opacity-0'
       )}
       style={{
@@ -104,7 +105,7 @@ const Modal2 = () => {
     >
       <div
         className={cn(
-          'md:w-[500px] w-[90dvw]  transition-all duration-500 relative flex flex-col justify-center items-center bg-white rounded-xl p-5',
+          'md:w-[500px] w-[90dvw]  transition-all duration-500 relative flex flex-col justify-center items-center bg-base-100 rounded-box p-5 shadow-2xl',
           modal2?.open ? 'animate-zoom ' : ' ',
           modal2.className
         )}

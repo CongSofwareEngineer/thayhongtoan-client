@@ -1,9 +1,14 @@
+import type { Metadata } from 'next'
+
 import React from 'react'
 
-import ClientAdminRender from '@/components/ClientAdminRender/page'
+import AdminShell from '@/components/AdminShell'
 
-function LayoutAdmin({ children }: { children: React.ReactNode }) {
-  return <ClientAdminRender>{children}</ClientAdminRender>
+export const metadata: Metadata = {
+  title: 'Quản trị',
+  robots: { index: false, follow: false },
 }
 
-export default LayoutAdmin
+const AdminLayout = ({ children }: { children: React.ReactNode }) => <AdminShell>{children}</AdminShell>
+
+export default AdminLayout

@@ -1,47 +1,58 @@
-import { ModalProps } from '@heroui/modal'
 import { ReactNode } from 'react'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
-import { ZUSTAND } from '@/constants/zustand'
+export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | 'full'
 
-type Modal = {
+export type Modal = {
+  title?: ReactNode
+  children?: ReactNode
+  size?: ModalSize
+  placement?: 'center' | 'top' | 'bottom'
+  showBtnClose?: boolean
+  overClickClose?: boolean
+  /** push on top of the current modal instead of replacing it */
   addModal?: boolean
   callBackAfter?: () => any
-  showBtnClose?: boolean
-  children?: ReactNode
-  //   placement?: 'center' | 'auto' | 'top' | 'top-center' | 'bottom' | 'bottom-center' | undefined
-} & ModalProps
+  classNames?: {
+    base?: string
+    header?: string
+    body?: string
+    backdrop?: string
+  }
+}
 
 interface ModalState {
   listModals: Modal[]
-  openModal: (nextModalAdmin: Modal) => void
+  openModal: (modal: Modal) => void
   closeModal: (isIconClose?: boolean) => void
+  closeAllModal: () => void
 }
+
 export const modal = create<ModalState>()(
   devtools(
     (set, get) => ({
       listModals: [],
-      [ZUSTAND.Modal]: {
-        open: false,
-      },
       openModal: (param: Modal) => {
-        const listModals = get().listModals
+        const listModals = [...get().listModals]
 
-        if (param.addModal) {
+        if (param.addModal || listModals.length === 0) {
           listModals.push(param)
         } else {
-          listModals[listModals.length === 0 ? 0 : listModals.length - 1] = param
+          listModals[listModals.length - 1] = param
         }
         set({ listModals })
       },
       closeModal: () => {
-        const listModals = get().listModals
-        const modal = listModals.pop()
+        const listModals = [...get().listModals]
+        const closed = listModals.pop()
 
-        modal?.callBackAfter && modal?.callBackAfter()
-
+        closed?.callBackAfter?.()
         set({ listModals })
+      },
+      closeAllModal: () => {
+        get().listModals.forEach((item) => item?.callBackAfter?.())
+        set({ listModals: [] })
       },
     }),
     {

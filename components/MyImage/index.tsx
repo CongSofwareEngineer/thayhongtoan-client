@@ -1,51 +1,46 @@
-import { useInView } from 'framer-motion'
+'use client'
 import Image, { ImageProps } from 'next/image'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 
 import { images } from '@/config/images'
 import { cn } from '@/utils/tailwind'
 
 type Props = {
+  /** skip the fade-in, e.g. for logos that must not flicker */
   noAnimation?: boolean
 } & Omit<ImageProps, 'alt' | 'src'> & {
     alt?: string
     src?: string
   }
-const MyImage = ({ noAnimation = false, src, alt = 'thay-hong-toan', ...props }: Props) => {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true })
 
+/**
+ * Thin wrapper over next/image: native lazy loading, a local skeleton while the
+ * file is in flight, and a safe fallback when the source is broken.
+ */
+const MyImage = ({ noAnimation = false, src, alt = 'thay-hong-toan', ...props }: Props) => {
   const [loaded, setLoaded] = useState(false)
+  const [failed, setFailed] = useState(false)
+  const isSettled = loaded || failed || noAnimation
 
   return (
     <Image
-      ref={ref}
       fill
       alt={alt}
       draggable={false}
-      loading='lazy'
-      priority={false}
-      sizes='100vw'
+      loading={props.priority ? undefined : 'lazy'}
+      sizes='(max-width: 768px) 100vw, 50vw'
       {...props}
       className={cn('!relative overflow-hidden', props?.className)}
+      src={failed ? images.icons.avatarDefault : src || images.icons.avatarDefault}
       style={{
-        filter: loaded || noAnimation ? 'none' : 'blur(20px)',
-        transition: 'filter 0.08s ease-out',
+        // Tinted box while the file is in flight; the image paints over it
+        backgroundColor: isSettled ? undefined : 'var(--color-base-200)',
+        filter: isSettled ? 'none' : 'blur(12px)',
+        transition: 'filter 0.2s ease-out',
         ...props.style,
       }}
-      onError={({ currentTarget }) => {
-        currentTarget.onerror = null
-        currentTarget.src = images.icons.avatarDefault
-      }}
-      onLoad={() => {
-        setLoaded(true)
-      }}
-      src={
-        inView
-          ? src || images.icons.avatarDefault
-          : 'https://res.cloudinary.com/tc-store/image/upload/w_100/v1734883048/tc-store/bgWhiteBlur_yxlqi7.png'
-      }
-      // src={src || images.icons.avatarDefault}
+      onError={() => setFailed(true)}
+      onLoad={() => setLoaded(true)}
     />
   )
 }

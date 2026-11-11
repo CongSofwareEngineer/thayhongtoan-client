@@ -1,0 +1,28 @@
+# Thầy Hồng Toán
+
+> Trung tâm luyện chữ đẹp, tập viết, toán tư duy, toán Soroban và tin học cơ bản cho trẻ 5-12 tuổi tại TP. Hà Tiên, Kiên Giang.
+
+- Địa chỉ: Nhà trọ Thanh Duy, TP. Hà Tiên, Kiên Giang
+- Hotline / Zalo: 0344 798 392
+- Email: hodienhong8392@gmail.com
+- Giờ dạy: 08:00 - 20:00 (thứ 2 - chủ nhật)
+- Học phí: 200.000đ - 600.000đ / tháng tuỳ lớp
+
+## Trang chính
+
+- [Trang chủ](https://thayhongtoan.vercel.app/): giới thiệu nhanh các lớp và đăng ký học thử.
+- [Giới thiệu](https://thayhongtoan.vercel.app/about): câu chuyện và phương pháp dạy của thầy.
+- [Lớp học](https://thayhongtoan.vercel.app/class): danh sách lớp luyện chữ, toán tư duy, Soroban, tập viết, tin học.
+- [Lịch học](https://thayhongtoan.vercel.app/schedule): thời khoá biểu các lớp trong tuần.
+- [Học phí](https://thayhongtoan.vercel.app/tuition): bảng học phí từng lớp và ưu đãi.
+- [Đăng ký học thử](https://thayhongtoan.vercel.app/register): đăng ký một buổi học thử miễn phí.
+- [Thanh toán học phí](https://thayhongtoan.vercel.app/payment): thanh toán bằng mã QR ngân hàng.
+- [Tra cứu học tập](https://thayhongtoan.vercel.app/student-tracking): phụ huynh tra cứu điểm danh và học phí của con.
+- [Hình ảnh](https://thayhongtoan.vercel.app/gallery): hình ảnh lớp học và hoạt động.
+- [Chia sẻ](https://thayhongtoan.vercel.app/blog): bài viết về cách dạy con học, luyện chữ, toán tư duy.
+- [Câu hỏi thường gặp](https://thayhongtoan.vercel.app/faq): giải đáp thắc mắc của phụ huynh.
+- [Liên hệ](https://thayhongtoan.vercel.app/contact): bản đồ, hotline, Zalo, Facebook.
+
+## Tham khảo
+
+- [Sitemap](https://thayhongtoan.vercel.app/sitemap.xml)

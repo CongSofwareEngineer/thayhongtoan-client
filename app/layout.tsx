@@ -1,17 +1,15 @@
 import '@/styles/aos.css'
-import '@/styles/globals.scss'
-import '@/styles/overrides.scss'
+import '@/styles/globals.css'
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
 import clsx from 'clsx'
 import { Metadata, Viewport } from 'next'
 
 import ClientRender from '@/components/ClientRender'
-import { HeroUIProvider } from '@/components/HeroUIProvider'
+import JsonLd from '@/components/JsonLd'
 import ReactQueryProvider from '@/components/ReactQueryProvider'
-import StyledComponentsRegistry from '@/components/StyledComponentsRegistry'
 import { robotoSlab } from '@/config/fonts'
 import { SITE_CONFIG } from '@/config/site'
-// import TeacherAPI from '@/services/API/Teacher'
+import { organizationSchema, websiteSchema } from '@/utils/seo'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
@@ -20,136 +18,91 @@ export const metadata: Metadata = {
     template: `%s - ${SITE_CONFIG.title}`,
   },
   description: SITE_CONFIG.description,
-  keywords: SITE_CONFIG.keywords,
-
+  keywords: [...SITE_CONFIG.keywords],
+  authors: [{ name: SITE_CONFIG.business.name, url: SITE_CONFIG.url }],
+  creator: SITE_CONFIG.business.name,
+  publisher: SITE_CONFIG.business.name,
+  category: 'education',
+  alternates: {
+    canonical: '/',
+    languages: { vi: '/' },
+  },
+  // openGraph/twitter images come from app/opengraph-image.tsx + app/twitter-image.tsx
   openGraph: {
+    type: 'website',
     title: SITE_CONFIG.title,
     description: SITE_CONFIG.description,
-    images: SITE_CONFIG.images,
     siteName: SITE_CONFIG.title,
     url: SITE_CONFIG.url,
-    phoneNumbers: ['+84344798392'],
-    locale: 'vi',
-    emails: 'hodiencong2000@gmail.com',
-    countryName: 'Vietnamese',
+    phoneNumbers: [SITE_CONFIG.business.phone],
+    emails: [SITE_CONFIG.business.email],
+    locale: SITE_CONFIG.locale,
+    countryName: 'Vietnam',
   },
   bookmarks: SITE_CONFIG.url,
   robots: {
     index: true,
     follow: true,
-    nocache: true,
     googleBot: {
       index: true,
       follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
     },
   },
   applicationName: SITE_CONFIG.title,
   icons: {
-    icon: { url: SITE_CONFIG.icon },
+    icon: [
+      { url: SITE_CONFIG.icon, sizes: '48x48' },
+      { url: '/192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
     shortcut: { url: SITE_CONFIG.icon },
-    apple: { url: SITE_CONFIG.icon },
+    apple: { url: SITE_CONFIG.appleIcon, sizes: '180x180' },
   },
-  manifest: '/manifest.json',
+  manifest: '/manifest.webmanifest',
   twitter: {
+    card: 'summary_large_image',
     title: SITE_CONFIG.title,
     description: SITE_CONFIG.description,
-    images: SITE_CONFIG.images,
     site: SITE_CONFIG.url,
   },
   appleWebApp: {
-    title: SITE_CONFIG.title,
+    title: SITE_CONFIG.shortName,
     capable: true,
+    statusBarStyle: 'default',
   },
-  // <meta name="google-site-verification" content="-SD7kSWHZKEXxbtkWRvn1r5wtOy8o6Gv0wDuA_ituHk" />
+  formatDetection: { telephone: true, address: true },
   verification: {
-    // google: 'YXX_WFs2UUKUX0hoW9cYgZsaKYARrlvneVgGWm7eGx8',
-    google: process.env.MODE_DEPLOY ? '-SD7kSWHZKEXxbtkWRvn1r5wtOy8o6Gv0wDuA_ituHk' : '',
-    // me:'YXX_WFs2UUKUX0hoW9cYgZsaKYARrlvneVgGWm7eGx8'
+    google: process.env.MODE_DEPLOY ? SITE_CONFIG.googleVerification : '',
   },
 }
 
 export const viewport: Viewport = {
-  themeColor: '#ffffff',
+  themeColor: SITE_CONFIG.themeColor,
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
   viewportFit: 'cover',
   colorScheme: 'light',
-  userScalable: false,
+  userScalable: true,
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  // const res = await TeacherAPI.infoMe()
-
-  // console.log({ res: res })
-
   return (
-    <html suppressHydrationWarning lang='vi'>
+    <html suppressHydrationWarning data-theme='thayhong' lang={SITE_CONFIG.lang}>
       <head>
-        {process.env.MODE_DEPLOY && (
-          <>
-            {/* <script
-              dangerouslySetInnerHTML={{
-                __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                      })(window,document,'script','dataLayer','GTM-N3KGG4XW');`,
-              }}
-            /> */}
-
-            <script
-              dangerouslySetInnerHTML={{
-                __html: JSON.stringify({
-                  '@context': 'https://schema.org',
-                  '@type': 'Education',
-                  name: SITE_CONFIG.title,
-                  url: SITE_CONFIG.url,
-                  logo: SITE_CONFIG.images,
-                  description: SITE_CONFIG.description,
-                  address: {
-                    '@type': 'PostalAddress',
-                    streetAddress: 'Thành Phố Hà Tiên',
-                    addressLocality: 'Kiên Giang',
-                    addressCountry: 'Việt nam',
-                  },
-                  contactPoint: {
-                    '@type': 'ContactPoint',
-                    telephone: '+84-344-798-392',
-                    contactType: 'hodienhong8392@gmail.com',
-                  },
-                }),
-              }}
-              type='application/ld+json'
-            />
-          </>
-        )}
+        {/* Site-wide structured data: always rendered so it can be validated outside production too */}
+        <JsonLd data={[organizationSchema(), websiteSchema()]} />
       </head>
       {process.env.MODE_DEPLOY && <GoogleTagManager gtmId='GTM-N3KGG4XW' />}
-      <body className={clsx(robotoSlab.variable)}>
+      <body className={clsx(robotoSlab.variable, 'font-sans antialiased')}>
         <ReactQueryProvider>
-          <StyledComponentsRegistry>
-            <HeroUIProvider themeProps={{ attribute: 'class', defaultTheme: 'light', forcedTheme: 'light' }}>
-              <ClientRender>{children}</ClientRender>
-            </HeroUIProvider>
-          </StyledComponentsRegistry>
+          <ClientRender>{children}</ClientRender>
         </ReactQueryProvider>
       </body>
-      {process.env.MODE_DEPLOY && (
-        <>
-          {/* <script async src='https://www.googletagmanager.com/gtag/js?id=G-6PQHPT7TWN' />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-6PQHPT7TWN');`,
-              }}
-            /> */}
-          <GoogleAnalytics gaId='G-6PQHPT7TWN' />
-        </>
-      )}
+      {process.env.MODE_DEPLOY && <GoogleAnalytics gaId='G-6PQHPT7TWN' />}
     </html>
   )
 }

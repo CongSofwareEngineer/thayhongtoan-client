@@ -19,6 +19,8 @@ class BaseAPI<T, F> {
     if (this.router && !url.startsWith('/auth')) {
       url = this.router + url
       url = url.replace('//', '/')
+      // `get('')` yields "/resource/?query"; drop the dangling slash
+      url = url.replace(/\/(\?|$)/, '$1')
     }
 
     const response = await fetchData({
@@ -52,10 +54,14 @@ class BaseAPI<T, F> {
 
   get<R = T[], B = F>(url: string, query?: B, config?: Partial<ClientAPITypeParam>) {
     if (query) {
-      const queryObj = new URLSearchParams(query as any)
-      const queryString = queryObj.toString()
+      // Drop empty values so filters never reach the API as the literal "undefined"
+      const entries = Object.entries(query as Record<string, unknown>).filter(([, value]) => value !== undefined && value !== null && value !== '')
 
-      url = url + `?${queryString}`
+      if (entries.length > 0) {
+        const queryString = new URLSearchParams(entries.map(([key, value]) => [key, String(value)])).toString()
+
+        url = url + `?${queryString}`
+      }
     }
     if (!url.startsWith('/')) {
       url = '/' + url

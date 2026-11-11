@@ -24,19 +24,19 @@ export enum REQUEST_TYPE {
   PATCH = 'PATCH',
 }
 export enum OBSERVER_KEY {
-  'LogOut' = 'LogOut',
-  'ReLogin' = 'ReLogin',
-  'RoutePage' = 'RoutePage',
-  'FirstLoadPage' = 'FirstLoadPage',
-  'UpdateCookieAuth' = 'UpdateCookieAuth',
+  LogOut = 'LogOut',
+  ReLogin = 'ReLogin',
+  RoutePage = 'RoutePage',
+  FirstLoadPage = 'FirstLoadPage',
+  UpdateCookieAuth = 'UpdateCookieAuth',
 }
 
 export enum COOKIE_KEY {
-  'Auth' = 'Auth',
-  'AuthRefresh' = 'AuthRefresh',
+  Auth = 'Auth',
+  AuthRefresh = 'AuthRefresh',
 
-  'Token' = 'Token',
-  'TokenRefresh' = 'TokenRefresh',
+  Token = 'Token',
+  TokenRefresh = 'TokenRefresh',
 }
 
 export enum PATH_IMG {
@@ -50,3 +50,44 @@ export enum PATH_IMG {
 }
 
 export const MAX_PIXEL_REDUCE = 300 as number
+
+export const INFO_CONTACT = {
+  name: 'Thầy Hồng Toán',
+  phone: '0344798392',
+  phoneDisplay: '0344 798 392',
+  email: 'hodienhong8392@gmail.com',
+  address: 'Nhà trọ Thanh Duy, TP. Hà Tiên, Kiên Giang',
+  workingTime: '08:00 - 20:00',
+}
+
+export enum COMMENT_STATUS {
+  PENDING = 'pending',
+  APPROVED = 'approved',
+  REJECTED = 'rejected',
+}
+
+export enum REGISTER_STATUS {
+  PENDING = 'pending',
+  APPROVED = 'approved',
+  REJECTED = 'rejected',
+}
+
+export enum PAYMENT_STATUS {
+  PAID = 'paid',
+  PARTIAL = 'partial',
+  UNPAID = 'unpaid',
+}
+
+export enum BLOG_STATUS {
+  DRAFT = 'draft',
+  PUBLISHED = 'published',
+}
+
+export const MAX_STAR = 5
+
+export const WEEK_DAYS = [1, 2, 3, 4, 5, 6, 0] as const
+
+export const MONTH_LABELS = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12']
+
+// Keys of the questions rendered on /faq (faq.q* / faq.a* in the language files)
+export const FAQ_KEYS = ['1', '2', '3', '4', '5', '6'] as const

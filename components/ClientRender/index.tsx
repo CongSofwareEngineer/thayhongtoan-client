@@ -1,46 +1,47 @@
 'use client'
 import dynamic from 'next/dynamic'
+import { usePathname } from 'next/navigation'
 import { PropsWithChildren, Suspense } from 'react'
 import { ToastContainer } from 'react-toastify'
 
-// import Header from '../Header'
-// import MyModal from '../MyModal'
-// import Footer from '../Footer'
-// import LoadingFirstLoad from '../LoadingFirstLoad'
-// import MyDrawer from '../MyDrawer'
-// import Modal2 from '../Modal2'
+import Footer from '../Footer'
+import Header from '../Header'
+import PreLoadData from '../PreLoadData'
 
-const Footer = dynamic(() => import('../Footer'))
-const LoadingFirstLoad = dynamic(() => import('../LoadingFirstLoad'))
-const Header = dynamic(() => import('../Header'))
-const PreLoadData = dynamic(() => import('../PreLoadData'))
+import { ROUTES } from '@/constants/routes'
 
-const MyModal = dynamic(() => import('../MyModal'), {
-  ssr: false,
-})
-const MyDrawer = dynamic(() => import('../MyDrawer'), {
-  ssr: false,
-})
+// Overlay roots render nothing until opened, so they are safe to skip on the server.
+// Header/Footer/PreLoadData stay static: loading them through next/dynamic made the
+// SSR chunk fail to parse and dropped every page to client-only rendering.
+const FloatingContact = dynamic(() => import('../FloatingContact'), { ssr: false })
+const MyModal = dynamic(() => import('../MyModal'), { ssr: false })
+const MyDrawer = dynamic(() => import('../MyDrawer'), { ssr: false })
+const Modal2 = dynamic(() => import('../Modal2'), { ssr: false })
 
-const Modal2 = dynamic(() => import('../Modal2'), {
-  ssr: false,
-})
+// Pages whose own primary action sits at the bottom of the screen; the floating
+// bubbles would cover it, and the contact details are already on the page.
+const NO_FLOATING_CONTACT: string[] = [ROUTES.register, ROUTES.payment, ROUTES.contact, ROUTES.login]
 
 const ClientRender = ({ children }: PropsWithChildren) => {
+  const pathname = usePathname()
+  // Admin runs inside its own shell with a sidebar, so it skips the public chrome
+  const isAdmin = pathname?.startsWith(ROUTES.admin.root)
+  const showFloatingContact = !isAdmin && !NO_FLOATING_CONTACT.includes(pathname || '')
+
   return (
     <Suspense>
       <PreLoadData />
-      <Header />
-      <main className='w-full h-full min-h-[calc(100vh-56px)] bg-[#F5F7FA] text-gray-900'>
-        {children}
-        <LoadingFirstLoad />
-        <Modal2 />
-        <MyModal />
-        <MyDrawer />
+      <div className='flex min-h-screen flex-col bg-base-100'>
+        {!isAdmin && <Header />}
+        <main className='flex w-full flex-1 flex-col'>{children}</main>
+        {!isAdmin && <Footer />}
+      </div>
 
-        <ToastContainer position='top-right' style={{ marginTop: 10 }} />
-      </main>
-      <Footer />
+      {showFloatingContact && <FloatingContact />}
+      <Modal2 />
+      <MyModal />
+      <MyDrawer />
+      <ToastContainer newestOnTop autoClose={3000} position='top-right' theme='light' />
     </Suspense>
   )
 }

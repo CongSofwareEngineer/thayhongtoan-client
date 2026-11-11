@@ -1,66 +1,102 @@
-import React from 'react'
-import { NumberInput, NumberInputProps } from '@heroui/number-input'
+'use client'
+import React, { ReactNode, useId } from 'react'
 
 import { cn } from '@/utils/tailwind'
 
-type Props = Omit<NumberInputProps, 'onChange'> & {
+export type MyInputNumberProps = {
+  label?: ReactNode
+  description?: ReactNode
+  errorMessage?: ReactNode
+  isInvalid?: boolean
+  isRequired?: boolean
+  value?: number
+  min?: number
+  max?: number
+  step?: number
+  placeholder?: string
+  disabled?: boolean
+  name?: string
+  id?: string
+  className?: string
+  formatComma?: boolean
+  endContent?: ReactNode
   onChange?: (value: number) => void
 }
-const MyInputNumber = ({ ...props }: Props) => {
-  const onChangeValue = (value: number) => {
-    let newValue = value?.toString().replace(/,/g, '.') // Thay tất cả dấu phẩy thành dấu chấm
 
-    // Tìm vị trí dấu chấm đầu tiên
-    const firstDotIndex = newValue?.indexOf('.')
+// Keep only digits and a single decimal separator, then return a number
+const parseNumber = (raw: string): number => {
+  let value = raw.replace(/,/g, '.').replace(/[^\d.]/g, '')
+  const firstDot = value.indexOf('.')
 
-    if (firstDotIndex !== -1 && newValue) {
-      // Nếu có dấu chấm, chỉ giữ lại dấu chấm đầu tiên và xóa các dấu chấm sau
-      newValue = newValue.substring(0, firstDotIndex + 1) + newValue.substring(firstDotIndex + 1).replace(/\./g, '')
-    }
-
-    if (newValue?.startsWith('.') === true) {
-      newValue = '0' + newValue
-    }
-
-    console.log({ newValue, newValueNumber: Number(newValue || '0') })
-
-    if (newValue) {
-      props?.onChange?.(Number(newValue || '0'))
-    }
+  if (firstDot !== -1) {
+    value = value.slice(0, firstDot + 1) + value.slice(firstDot + 1).replace(/\./g, '')
+  }
+  if (value.startsWith('.')) {
+    value = '0' + value
   }
 
-  return (
-    <NumberInput
-      hideStepper={typeof props?.hideStepper === 'boolean' ? props?.hideStepper : true}
-      labelPlacement={props?.labelPlacement ?? 'outside'}
-      // step={props?.step || 0}
-      {...props}
-      classNames={{
-        ...props?.classNames,
-        base: cn('group flex flex-col data-[has-helper=true]:mb-2', props?.classNames?.base),
-        label: cn('!text-black font-bold text-base top-[-12px] z-[2]', props?.classNames?.label),
-        input: cn(
-          '!text-black',
-          '!ring-0 focus-visible:outline-none border-[1px] border-gray-200 !bg-white !text-black !ring-transparent',
-          'group-data-[focus-visible=true]:!bg-white  ',
-          'group-data-[focus=true]:!bg-white',
-          'group-data-[hover=true]:!bg-white',
-          props?.classNames?.input
-        ),
-        // inputWrapper: cn(
-        //   '!ring-0 !focus-visible:outline-none border-[1px] border-gray-200 !bg-white !text-black !ring-transparent',
-        //   'group-data-[focus-visible=true]:!bg-white group-data-[focus-visible=true]:!outline-none',
-        //   'group-data-[focus=true]:!bg-white',
-        //   'group-data-[hover=true]:!bg-white',
-        //   props?.classNames?.inputWrapper
-        // ),
-      }}
-      onChange={(e: any) => {
-        const value: any = e?.target?.value
+  return Number(value || '0')
+}
 
-        onChangeValue(value)
-      }}
-    />
+const MyInputNumber = ({
+  label,
+  description,
+  errorMessage,
+  isInvalid,
+  isRequired,
+  value,
+  min,
+  max,
+  step = 1,
+  placeholder,
+  disabled,
+  name,
+  id,
+  className,
+  formatComma = false,
+  endContent,
+  onChange,
+}: MyInputNumberProps) => {
+  const autoId = useId()
+  const inputId = id || autoId
+  const showError = Boolean(errorMessage) || isInvalid
+
+  const display = typeof value === 'number' && !Number.isNaN(value) ? (formatComma ? value.toLocaleString('vi-VN') : String(value)) : ''
+
+  return (
+    <div className={cn('flex w-full flex-col gap-1.5', className)}>
+      {label && (
+        <label className='text-sm font-semibold text-base-content' htmlFor={inputId}>
+          {label}
+          {isRequired && <span className='ml-0.5 text-error'>*</span>}
+        </label>
+      )}
+
+      <label className={cn('input w-full items-center gap-2 bg-base-100', showError && 'input-error', disabled && 'opacity-60')}>
+        <input
+          className='grow bg-transparent outline-none'
+          disabled={disabled}
+          id={inputId}
+          inputMode='decimal'
+          max={max}
+          min={min}
+          name={name}
+          placeholder={placeholder}
+          required={isRequired}
+          step={step}
+          type='text'
+          value={display}
+          onChange={(e) => onChange?.(parseNumber(e.target.value))}
+        />
+        {endContent && <span className='shrink-0 text-sm opacity-60'>{endContent}</span>}
+      </label>
+
+      {showError && errorMessage ? (
+        <p className='text-xs font-medium text-error'>{errorMessage}</p>
+      ) : (
+        description && <p className='text-xs text-base-content/60'>{description}</p>
+      )}
+    </div>
   )
 }
 

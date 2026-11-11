@@ -10,7 +10,7 @@ export const copyToClipboard = (text: any) => {
   tmp.select()
   document.execCommand('copy')
   tmp.remove()
-  showNotificationSuccess(language.getState().language.messages.textPopular.copied, {
+  showNotificationSuccess(language.getState().language.messages?.common?.copied, {
     autoClose: 2000,
     style: {
       width: 'auto',

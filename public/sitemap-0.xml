@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://thayhongtoan.vercel.app/contact</loc><lastmod>2025-07-19T06:21:33.451Z</lastmod><changefreq>daily</changefreq><priority>1</priority></url>
-<url><loc>https://thayhongtoan.vercel.app/login</loc><lastmod>2025-07-19T06:21:33.452Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://thayhongtoan.vercel.app/home</loc><lastmod>2025-07-19T06:21:33.452Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://thayhongtoan.vercel.app</loc><lastmod>2026-11-11T09:18:43.562Z</lastmod><changefreq>daily</changefreq><priority>1</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/about</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/blog</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/class</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>1</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/contact</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>1</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/faq</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/gallery</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/payment</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/register</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>1</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/schedule</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/student-tracking</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/tuition</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>1</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/blog/5-cach-giup-con-ngoi-vao-ban-hoc-ma-khong-can-quat</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/blog/luyen-chu-dep-nen-bat-dau-tu-may-tuoi</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/blog/soroban-co-thuc-su-giup-con-hoc-toan-tot-hon-khong</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/blog/chuan-bi-gi-cho-con-truoc-khi-vao-lop-1</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/class/demo-luyen-chu</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/class/demo-toan-tu-duy</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/class/demo-soroban</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/class/demo-tap-viet</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/class/demo-tin-hoc</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://thayhongtoan.vercel.app/class/demo-on-thi</loc><lastmod>2026-11-11T09:18:43.563Z</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
 </urlset>

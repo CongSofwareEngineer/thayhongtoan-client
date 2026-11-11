@@ -1,24 +1,38 @@
-import React, { useLayoutEffect } from 'react'
+'use client'
+import { useEffect } from 'react'
 
 import useUser from '@/hooks/useUser'
 import TeacherAPI from '@/services/API/Teacher'
 
+// Restore the signed-in teacher once on first load, then unblock the admin guard
 function PreLoadData() {
-  const { setUser } = useUser()
+  const { setUser, setLoadedUser } = useUser()
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    let active = true
+
     const getData = async () => {
-      const res = await TeacherAPI.infoMe()
+      try {
+        const res = await TeacherAPI.infoMe()
 
-      if (res?.data) {
-        setUser(res?.data)
+        if (active && res?.data) {
+          setUser(res.data)
+        }
+      } finally {
+        if (active) {
+          setLoadedUser(true)
+        }
       }
     }
 
     getData()
-  }, [])
 
-  return <></>
+    return () => {
+      active = false
+    }
+  }, [setUser, setLoadedUser])
+
+  return null
 }
 
 export default PreLoadData

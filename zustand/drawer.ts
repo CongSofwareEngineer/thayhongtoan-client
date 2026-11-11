@@ -1,18 +1,33 @@
+import { ReactNode } from 'react'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { DrawerProps } from '@heroui/drawer'
 
 import { ZUSTAND } from '@/constants/zustand'
 
-type Drawer = {
+export type DrawerPlacement = 'left' | 'right' | 'top' | 'bottom'
+
+export type Drawer = {
+  isOpen?: boolean
+  title?: ReactNode
+  children?: ReactNode
+  placement?: DrawerPlacement
+  showBtnClose?: boolean
+  overClickClose?: boolean
   callBackAfter?: () => any
-} & DrawerProps
+  classNames?: {
+    base?: string
+    header?: string
+    body?: string
+    backdrop?: string
+  }
+}
 
 interface DrawerState {
   [ZUSTAND.Drawer]: Drawer
-  openDrawer: (nextDrawerAdmin: Drawer) => void
+  openDrawer: (drawer: Drawer) => void
   closeDrawer: (isIconClose?: boolean) => void
 }
+
 export const drawer = create<DrawerState>()(
   devtools(
     (set, get) => ({
@@ -22,30 +37,29 @@ export const drawer = create<DrawerState>()(
       openDrawer: (param: Drawer) => {
         set({
           [ZUSTAND.Drawer]: {
-            placement: 'bottom',
-
+            placement: 'right',
+            showBtnClose: true,
+            overClickClose: true,
             ...param,
             isOpen: true,
           },
         })
       },
       closeDrawer: () => {
-        const drawer = get()[ZUSTAND.Drawer]
+        const current = get()[ZUSTAND.Drawer]
 
-        drawer.callBackAfter && drawer.callBackAfter()
-        const init = {
+        current.callBackAfter?.()
+        set({
           [ZUSTAND.Drawer]: {
-            ...drawer,
+            ...current,
             children: null,
             isOpen: false,
           },
-        }
-
-        set(init as any)
+        })
       },
     }),
     {
-      name: 'modal-zustand',
+      name: 'drawer-zustand',
       enabled: process.env.NEXT_PUBLIC_ENV !== 'production',
     }
   )

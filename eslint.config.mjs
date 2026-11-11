@@ -1,3 +1,4 @@
+import nextPlugin from "@next/eslint-plugin-next";
 import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
 import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
@@ -44,6 +45,7 @@ export default defineConfig([
     "!**/react-shim.js",
     "!**/tsup.config.ts",
   ]),
+  nextPlugin.configs["core-web-vitals"],
   {
     extends: fixupConfigRules(
       compat.extends(
@@ -51,7 +53,6 @@ export default defineConfig([
         "plugin:prettier/recommended",
         "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
-        "plugin:@next/next/recommended",
       ),
     ),
 

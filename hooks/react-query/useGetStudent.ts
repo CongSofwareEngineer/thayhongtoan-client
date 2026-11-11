@@ -19,7 +19,8 @@ const useGetStudent = (query: IStudentFilter = {}) => {
       }
     },
     getNextPageParam: (lastPage: { data: IStudent[]; page: number }) => {
-      if (lastPage?.data?.length === query?.limit || PAGE_SIZE_LIMIT) {
+      // A full page means there is probably another one; a short page is the last
+      if (lastPage?.data?.length === (query?.limit || PAGE_SIZE_LIMIT)) {
         return lastPage.page + 1
       }
 

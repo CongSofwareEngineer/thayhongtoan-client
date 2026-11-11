@@ -1,180 +1,179 @@
+'use client'
 import Link from 'next/link'
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@heroui/dropdown'
 import { usePathname, useRouter } from 'next/navigation'
+import { ReactNode } from 'react'
 
+import MyButton from '@/components/MyButton'
+import MyDropdown from '@/components/MyDropdown'
+import { AcademicIcon } from '@/components/Icons/Academic'
+import { BookOpenIcon } from '@/components/Icons/BookOpen'
+import { CalendarIcon } from '@/components/Icons/Calendar'
+import { ChatIcon } from '@/components/Icons/Chat'
+import { ContactIcon } from '@/components/Icons/Contact'
+import { HomeIcon } from '@/components/Icons/Home'
+import { InfoIcon } from '@/components/Icons/Info'
+import { LogOutIcon } from '@/components/Icons/LogOut'
+import { MenuIcon } from '@/components/Icons/Menu'
+import { MoneyIcon } from '@/components/Icons/Money'
+import { PhotoIcon } from '@/components/Icons/Photo'
+import { SearchIcon } from '@/components/Icons/Search'
+import { SquaresIcon } from '@/components/Icons/Squares'
+import { UserCircleIcon } from '@/components/Icons/UserCircle'
+import { ROUTES } from '@/constants/routes'
 import useDrawer from '@/hooks/useDrawer'
 import useLanguage from '@/hooks/useLanguage'
-import useMedia from '@/hooks/useMedia'
 import useUser from '@/hooks/useUser'
-import MyDropdown from '@/components/MyDropdown'
 import TeacherAPI from '@/services/API/Teacher'
-import MyButton from '@/components/MyButton'
 import { cn } from '@/utils/tailwind'
-import { IconRegister } from '@/components/Icons/IconRegister'
-import { HomeIcon } from '@/components/Icons/Home'
-import { CheckBadgeIcon } from '@/components/Icons/CheckBadge'
-import { PaymentIcon } from '@/components/Icons/Payment'
-import { UserCircleIcon } from '@/components/Icons/UserCircle'
-import { MenuIcon } from '@/components/Icons/Menu'
-import { ClassIcon } from '@/components/Icons/Class'
-import { ContactIcon } from '@/components/Icons/Contact'
-import { InfoIcon } from '@/components/Icons/Info'
-import { CopyIcon } from '@/components/Icons/Copy'
+
+type NavItem = { href: string; label: string; icon: ReactNode }
 
 const Nav = () => {
-  const { isMobile } = useMedia()
   const { translate } = useLanguage()
-  const { openDrawer } = useDrawer()
+  const { openDrawer, closeDrawer } = useDrawer()
   const { user, setUser } = useUser()
   const router = useRouter()
   const pathname = usePathname()
 
-  const adminLinks = [
-    { key: 'attendance', label: 'header.admin.attendance', href: '/admin/attendance', icon: <CheckBadgeIcon /> },
-    { key: 'class', label: 'header.admin.class', href: '/class', icon: <HomeIcon /> },
-    { key: 'payment', label: 'header.admin.payment', href: '/admin/payment', icon: <PaymentIcon /> },
-    { key: 'register', label: 'header.admin.register', href: '/admin/register', icon: <IconRegister /> },
-    { key: 'student', label: 'header.admin.student', href: '/admin/student', icon: <UserCircleIcon /> },
-    { key: 'teacher', label: 'header.admin.teacher', href: '/admin/teacher', icon: <UserCircleIcon /> },
+  // Primary nav always visible on desktop
+  const mainLinks: NavItem[] = [
+    { href: ROUTES.home, label: translate('header.home'), icon: <HomeIcon /> },
+    { href: ROUTES.about, label: translate('header.about'), icon: <InfoIcon /> },
+    { href: ROUTES.class, label: translate('header.class'), icon: <AcademicIcon /> },
+    { href: ROUTES.schedule, label: translate('header.schedule'), icon: <CalendarIcon /> },
+    { href: ROUTES.tuition, label: translate('header.tuition'), icon: <MoneyIcon /> },
+    { href: ROUTES.blog, label: translate('header.blog'), icon: <BookOpenIcon /> },
+    { href: ROUTES.contact, label: translate('header.contact'), icon: <ContactIcon /> },
+  ]
+
+  // Secondary nav tucked into a "More" dropdown on desktop
+  const moreLinks: NavItem[] = [
+    { href: ROUTES.gallery, label: translate('header.gallery'), icon: <PhotoIcon /> },
+    { href: ROUTES.faq, label: translate('header.faq'), icon: <ChatIcon /> },
+    { href: ROUTES.tracking, label: translate('header.tracking'), icon: <SearchIcon /> },
   ]
 
   const handleLogout = () => {
     setUser(null)
     TeacherAPI.logout()
+    router.push(ROUTES.home)
   }
 
-  const renderContact = () => {
-    // return (
-    //   <div className='flex gap-3 items-center'>
-    //     <Link className='flex gap-1 items-center' href={LINK_CONTACT.Zalo} target='_blank'>
-    //       <MyImage fill alt='icon zalo' className='!w-6  !h-6 !relative' src={images.icons.iconZalo} />
-    //       {!isMobile && <span>0344798392</span>}
-    //     </Link>
-    //     <Link className='flex gap-1 items-center' href={LINK_CONTACT.SDT} target='_blank'>
-    //       <FaSquarePhoneFlip className='text-blue-700' style={{ fontSize: 20 }} />
-    //       {!isMobile && <span>0344798392</span>}
-    //     </Link>
-    //     <Link className='flex gap-1 items-center' href={LINK_CONTACT.FaceBook} target='_blank'>
-    //       <FaFacebook className='text-blue-700' style={{ fontSize: 20 }} />
-    //       {!isMobile && <span>Thầy Hồng Toán</span>}
-    //     </Link>
-    //   </div>
-    // )
-    return (
-      <MyButton className='font-semibold' size='sm' variant='solid' onClick={() => router.push('/login')}>
-        {translate('login.login')}
-      </MyButton>
-    )
-  }
+  const isActive = (href: string) => (href === ROUTES.home ? pathname === href : pathname.startsWith(href))
 
-  const renderUser = () => {
-    return (
-      // <div className='flex gap-3 items-center'>
-      //   <div>{user?.name}</div>
-      // </div>
-      <MyDropdown
-        options={[
-          // { label: 'header.admin.profile', key: 'profile' },
-          { label: <div onClick={handleLogout}>{translate('common.logout')}</div>, key: 'logout' },
-        ]}
-      >
-        <div className='flex gap-2 items-center cursor-pointer rounded-full border border-black/5 bg-black/5 px-3 py-1 text-gray-800 hover:bg-black/10 transition-colors'>
-          <div className='max-w-40 truncate'>{user?.name}</div>
-          <MenuIcon className='text-gray-500' />
-        </div>
-      </MyDropdown>
-    )
-  }
+  const renderLink = ({ href, label, icon }: NavItem, withIcon = false) => (
+    <Link
+      key={href}
+      className={cn(
+        'flex items-center gap-2 rounded-field px-3 py-2 text-sm font-medium transition-colors',
+        isActive(href) ? 'bg-primary/10 font-bold text-primary' : 'text-base-content/70 hover:bg-base-200 hover:text-base-content'
+      )}
+      href={href}
+      onClick={() => closeDrawer()}
+    >
+      {withIcon && <span className='opacity-70'>{icon}</span>}
+      <span>{label}</span>
+    </Link>
+  )
 
-  const renderNavLink = (href: string, label: string, icon?: React.ReactNode) => {
-    const isActive = pathname === href
+  const renderMobileMenu = () => (
+    <nav className='flex flex-col gap-1'>
+      {[...mainLinks, ...moreLinks].map((item) => renderLink(item, true))}
 
-    return (
-      <Link
-        className={cn(
-          'flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium transition-colors',
-          isActive ? 'bg-default/10 text-default font-bold' : 'text-gray-600 hover:text-gray-900 hover:bg-black/5'
-        )}
-        href={href}
-      >
-        {isMobile && icon}
-        <span>{label}</span>
-      </Link>
-    )
-  }
-
-  const renderMenu = () => {
-    return (
-      <div className='flex md:flex-row flex-col gap-3 md:items-center'>
-        {renderNavLink('/', translate('header.home'), <HomeIcon />)}
-        {renderNavLink('/class', translate('header.admin.class'), <ClassIcon />)}
-        {renderNavLink('/contact', translate('header.contact'), <ContactIcon />)}
-        {renderNavLink('/info', translate('header.info'), <InfoIcon />)}
-        {renderNavLink('/laundry', 'Giặt ủi', <InfoIcon />)}
-        {user && (
+      <div className='mt-3 border-t border-base-300 pt-3'>
+        {user ? (
           <>
-            {renderNavLink('/admin', translate('header.admin.title'), <CopyIcon />)}
-            {isMobile ? (
-              <div className='flex flex-col gap-2 mt-2 pt-2 border-t border-black/5'>
-                <p className='text-tiny font-bold text-gray-400 uppercase'>{translate('header.admin.title')}</p>
-                {adminLinks.map((link) => (
-                  <Link
-                    key={link.key}
-                    className='flex items-center gap-2 rounded-lg px-2 py-2 text-gray-600 hover:bg-black/5 hover:text-gray-900'
-                    href={link.href}
-                  >
-                    <span className='text-gray-500'>{link.icon}</span>
-                    <span>{translate(link.label as any)}</span>
-                  </Link>
-                ))}
-              </div>
-            ) : (
-              <Dropdown>
-                <DropdownTrigger>
-                  <div className='flex items-center gap-2 cursor-pointer rounded-full px-3 py-2 text-sm font-medium text-gray-600 hover:bg-black/5 hover:text-gray-900 transition-colors'>
-                    <CopyIcon className='text-gray-500' />
-                    <span className='text-gray-800'>{translate('header.admin.title')}</span>
-                  </div>
-                </DropdownTrigger>
-                <DropdownMenu aria-label='Admin Actions' className='bg-white text-gray-900 border border-black/5'>
-                  {adminLinks.map((link) => (
-                    <DropdownItem key={link.key} startContent={<span className='text-gray-500'>{link.icon}</span>}>
-                      <Link className='text-gray-800' href={link.href}>
-                        {translate(link.label as any)}
-                      </Link>
-                    </DropdownItem>
-                  ))}
-                </DropdownMenu>
-              </Dropdown>
-            )}
+            {renderLink({ href: ROUTES.admin.root, label: translate('header.admin.title'), icon: <SquaresIcon /> }, true)}
+            <button
+              className='flex w-full items-center gap-2 rounded-field px-3 py-2 text-sm font-medium text-error hover:bg-error/10'
+              type='button'
+              onClick={() => {
+                closeDrawer()
+                handleLogout()
+              }}
+            >
+              <LogOutIcon />
+              {translate('common.logout')}
+            </button>
           </>
+        ) : (
+          renderLink({ href: ROUTES.login, label: translate('common.login'), icon: <UserCircleIcon /> }, true)
         )}
       </div>
-    )
-  }
 
-  if (isMobile) {
-    return (
-      <div className='flex gap-2 flex-1 items-center justify-end'>
-        {renderContact()}
-        <MenuIcon
-          className='text-2xl cursor-pointer text-gray-600 hover:text-gray-900'
-          onClick={() => {
-            openDrawer({
-              children: renderMenu(),
-              placement: 'right',
-            })
-          }}
-        />
-      </div>
-    )
-  }
+      <MyButton
+        className='mt-4 w-full font-semibold'
+        onClick={() => {
+          closeDrawer()
+          router.push(ROUTES.register)
+        }}
+      >
+        {translate('header.registerTrial')}
+      </MyButton>
+    </nav>
+  )
 
   return (
-    <div className='flex flex-1 gap-3 items-center justify-between'>
-      {renderMenu()}
-      {user ? renderUser() : renderContact()}
-    </div>
+    <>
+      {/* Desktop */}
+      <nav className='hidden flex-1 items-center justify-center gap-1 lg:flex'>
+        {mainLinks.map((item) => renderLink(item))}
+        <MyDropdown
+          options={moreLinks.map((item) => ({ key: item.href, label: item.label, icon: item.icon }))}
+          placement='center'
+          onAction={(key) => router.push(key)}
+        >
+          <span className='flex cursor-pointer items-center gap-1 rounded-field px-3 py-2 text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content'>
+            {translate('common.seeMore')}
+          </span>
+        </MyDropdown>
+      </nav>
+
+      <div className='hidden shrink-0 items-center gap-2 lg:flex'>
+        {user ? (
+          <MyDropdown
+            options={[
+              { key: 'admin', label: translate('header.admin.title'), icon: <SquaresIcon /> },
+              { key: 'logout', label: translate('common.logout'), icon: <LogOutIcon />, danger: true },
+            ]}
+            onAction={(key) => (key === 'logout' ? handleLogout() : router.push(ROUTES.admin.root))}
+          >
+            <span className='flex max-w-48 cursor-pointer items-center gap-2 rounded-full border border-base-300 bg-base-200 px-3 py-1.5 text-sm hover:bg-base-300'>
+              <UserCircleIcon className='size-5 shrink-0' />
+              <span className='truncate'>{user?.name}</span>
+            </span>
+          </MyDropdown>
+        ) : (
+          <MyButton size='sm' variant='ghost' onClick={() => router.push(ROUTES.login)}>
+            {translate('common.login')}
+          </MyButton>
+        )}
+        <MyButton className='font-semibold' size='sm' onClick={() => router.push(ROUTES.register)}>
+          {translate('header.registerTrial')}
+        </MyButton>
+      </div>
+
+      {/* Mobile */}
+      <div className='flex flex-1 items-center justify-end gap-2 lg:hidden'>
+        <MyButton className='font-semibold' size='sm' onClick={() => router.push(ROUTES.register)}>
+          {translate('common.register')}
+        </MyButton>
+        <button
+          aria-label={translate('header.menu')}
+          className='btn btn-square btn-ghost btn-sm'
+          type='button'
+          onClick={() =>
+            openDrawer({
+              title: translate('header.menu'),
+              placement: 'right',
+              children: renderMobileMenu(),
+            })
+          }
+        >
+          <MenuIcon className='size-6' />
+        </button>
+      </div>
+    </>
   )
 }
 

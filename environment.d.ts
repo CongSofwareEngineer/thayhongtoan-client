@@ -3,6 +3,8 @@ interface EnvironmentVariables {
   readonly NEXT_PUBLIC_API_APP: string
   readonly NEXT_PUBLIC_ENV: string
   readonly NEXT_PUBLIC_BUILD: string
+  readonly MODE_DEPLOY: string
+  readonly SEPAY_API_KEY: string
 }
 
 declare namespace NodeJS {
