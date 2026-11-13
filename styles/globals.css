@@ -6,6 +6,62 @@
 
 @plugin "daisyui" {
   themes: false;
+  /* daisyUI's `join` utility emits `@scope(&) { & > :where(...) }`, which the Turbopack CSS parser rejects
+     ("Invalid empty selector") and which breaks `next dev` on every route. It is replaced below. */
+  exclude: join;
+}
+
+/* Replacement for the excluded daisyUI `join` utility — same behaviour, plain selectors only. */
+@layer utilities {
+  .join {
+    display: inline-flex;
+    align-items: stretch;
+  }
+
+  .join-horizontal {
+    flex-direction: row;
+  }
+
+  .join-vertical {
+    flex-direction: column;
+  }
+
+  .join > .join-item {
+    border-radius: 0;
+  }
+
+  .join > .join-item:focus,
+  .join > .join-item:focus-visible {
+    z-index: 2;
+  }
+
+  .join:not(.join-vertical) > .join-item:not(:first-child) {
+    margin-inline-start: calc(var(--border, 1px) * -1);
+  }
+
+  .join:not(.join-vertical) > .join-item:first-child {
+    border-start-start-radius: var(--radius-field);
+    border-end-start-radius: var(--radius-field);
+  }
+
+  .join:not(.join-vertical) > .join-item:last-child {
+    border-start-end-radius: var(--radius-field);
+    border-end-end-radius: var(--radius-field);
+  }
+
+  .join.join-vertical > .join-item:not(:first-child) {
+    margin-block-start: calc(var(--border, 1px) * -1);
+  }
+
+  .join.join-vertical > .join-item:first-child {
+    border-start-start-radius: var(--radius-field);
+    border-start-end-radius: var(--radius-field);
+  }
+
+  .join.join-vertical > .join-item:last-child {
+    border-end-start-radius: var(--radius-field);
+    border-end-end-radius: var(--radius-field);
+  }
 }
 
 /* Brand theme: trustworthy green + warm amber, tuned for parents browsing a tutoring site */

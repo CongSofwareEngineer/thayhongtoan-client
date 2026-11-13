@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint --fix",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "build-webpack": "next build --webpack"
   },
   "dependencies": {
     "@blocknote/core": "^0.57.0",
